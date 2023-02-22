@@ -27,11 +27,7 @@ export default class InputBar extends PureComponent {
     const sendAbleIcon = sendIcon || <ImageComponent source={require('../../source/image/sendAble.png')} style={{ width: 30, height: 30 }} />
     const sendUnableIconDefault = sendUnableIcon || <ImageComponent source={require('../../source/image/send.png')} style={{ width: 30, height: 30 }} />
     if (usePlus) {
-      if (messageContent.trim().length) {
-        return sendAbleIcon
-      } else {
-        return plusIcon || <ImageComponent source={require('../../source/image/more.png')} style={{ width: 30, height: 30 }} />
-      }
+      return plusIcon || <ImageComponent source={require('../../source/image/more.png')} style={{ width: 30, height: 30 }} />
     } else {
       return messageContent.trim().length ? sendAbleIcon : sendUnableIconDefault
     }
@@ -133,6 +129,10 @@ export default class InputBar extends PureComponent {
               placeholder={placeholder}
               onContentSizeChange={onContentSizeChange}
               textChange={textChange}
+              onSubmit={() => {
+                console.log("send text",messageContent);
+                onSubmitEditing('text', messageContent);
+              }}
               messageContent={messageContent}
               inputHeightFix={inputHeightFix}
               inputChangeSize={inputChangeSize}
@@ -154,14 +154,10 @@ export default class InputBar extends PureComponent {
             style={{ marginLeft: 8 }}
             onPress={
               () => {
-                if (messageContent.trim().length > 0) {
-                  onSubmitEditing('text', messageContent)
+                if (usePlus) {
+                  isShowPanel(!isPanelShow)
                 } else {
-                  if (usePlus) {
-                    isShowPanel(!isPanelShow)
-                  } else {
-                    return null
-                  }
+                  return null
                 }
             }
             }
