@@ -18,10 +18,8 @@
 <img alt="react-native-easy-chat-ui" src="https://raw.githubusercontent.com/DaiYz/react-native-easy-chat-ui/master/screenshots/6.png" width="207" height="448" /></p>
 
 ## Installation
-* yarn add @react-native-community/viewpager
-* react-native link @react-native-community/viewpager
-* [npm](https://www.npmjs.com/#getting-started): `npm install react-native-easy-chat-ui --save`
-* [Yarn](https://yarnpkg.com/): `yarn add react-native-easy-chat-ui`
+* [npm](https://www.npmjs.com/#getting-started): `npm install https://github.com/boboxiaodd/react-native-easy-chat-ui --save`
+* [Yarn](https://yarnpkg.com/): `yarn add https://github.com/boboxiaodd/react-native-easy-chat-ui`
 
 ## Dependency
 - Use version `0.2.x` for RN `>= 0.44.0`
