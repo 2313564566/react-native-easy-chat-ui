@@ -35,11 +35,7 @@ export default class InputBar extends PureComponent {
 
   renderEmojieIcon = () => {
     const { isEmojiShow, keyboardIcon, emojiIcon, ImageComponent } = this.props
-    if (isEmojiShow) {
-      return keyboardIcon || <ImageComponent source={require('../../source/image/keyboard.png')} style={{ width: 30, height: 30 }} />
-    } else {
-      return emojiIcon || <ImageComponent source={require('../../source/image/emoji.png')} style={{ width: 30, height: 30 }} />
-    }
+    return emojiIcon || <ImageComponent source={require('../../source/image/emoji.png')} style={{ width: 30, height: 30 }} />
   }
 
   render () {
