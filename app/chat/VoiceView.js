@@ -5,11 +5,11 @@ import {
   Animated,
   Dimensions,
   Text,
-  ViewPropTypes as RNViewPropTypes,
   ActivityIndicator,
   Platform
 } from 'react-native'
 // import {AudioRecorder, AudioUtils} from 'react-native-audio'
+import {ViewPropTypes as RNViewPropTypes} from "deprecated-react-native-prop-types";
 import PropTypes from 'prop-types'
 const delay = (ms) => new Promise(resolve => setTimeout(() => resolve(), ms))
 const ViewPropTypes = RNViewPropTypes || View.propTypes
