@@ -9,7 +9,7 @@ import {
   Platform
 } from 'react-native'
 // import {AudioRecorder, AudioUtils} from 'react-native-audio'
-import {ViewPropTypes as RNViewPropTypes} from "deprecated-react-native-prop-types";
+import {ViewPropTypes as RNViewPropTypes,TextPropTypes} from "deprecated-react-native-prop-types";
 import PropTypes from 'prop-types'
 const delay = (ms) => new Promise(resolve => setTimeout(() => resolve(), ms))
 const ViewPropTypes = RNViewPropTypes || View.propTypes
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
 
 VoiceView.propTypes = {
   style: ViewPropTypes.style,
-  textStyle: Text.propTypes.style,
+  textStyle: TextPropTypes.style,
   positionValue: PropTypes.number,
   fadeInDuration: PropTypes.number,
   fadeOutDuration: PropTypes.number,
