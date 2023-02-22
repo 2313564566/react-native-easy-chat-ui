@@ -10,9 +10,9 @@ import {
   Easing,
   Clipboard,
   Dimensions,
-  FlatList,
-  ViewPropTypes as RNViewPropTypes
+  FlatList
 } from 'react-native'
+import {ViewPropTypes as RNViewPropTypes} from 'deprecated-react-native-prop-types'
 import PropTypes from 'prop-types'
 import { getCurrentTime, changeEmojiText } from './utils'
 import Voice from './VoiceView'
