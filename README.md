@@ -1,3 +1,8 @@
+# 主要改动
+当 RN > 0.69 `ViewPropTypes` 不能用了，用 `deprecated-react-native-prop-types` 代替合并代码。
+
+增加依赖：`react-native-pager-view`，修复bug https://github.com/DaiYz/react-native-easy-chat-ui/issues/98#issue-976272549
+ 
 # react-native-easy-chat-ui
 
 [中文文档](./cn/README.md)
