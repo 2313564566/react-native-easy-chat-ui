@@ -935,7 +935,7 @@ ChatWindow.propTypes = {
   isReadStyle: PropTypes.object,
   userProfile: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    avatar: PropTypes.isRequired,
+    avatar: PropTypes.number.isRequired,
     nickName: PropTypes.string
   }),
   panelSource: PropTypes.array,
