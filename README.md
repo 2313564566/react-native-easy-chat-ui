@@ -7,7 +7,7 @@
 ```bash
 Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid; it must be a function, usually from the `prop-types` package, but received `undefined`.
 ```
-4、改成微信发送风格，去掉发送按钮图标
+4、改成微信发送风格，去掉发送按钮图标，表情图标始终保持不变
 
 # react-native-easy-chat-ui
 
