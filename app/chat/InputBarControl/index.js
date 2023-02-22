@@ -4,7 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Dimensions
+  Dimensions,Keyboard
 } from 'react-native'
 import Container from './Container'
 import Voice from './Voice'
@@ -144,7 +144,10 @@ export default class InputBar extends PureComponent {
             useEmoji
               ? <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => this.props.showEmoji()}
+                onPress={() => {
+                  Keyboard.dismiss();
+                  this.props.showEmoji()
+                }}
                 >
                 {this.renderEmojieIcon()}
                 </TouchableOpacity>
@@ -155,6 +158,7 @@ export default class InputBar extends PureComponent {
             onPress={
               () => {
                 if (usePlus) {
+                  Keyboard.dismiss();
                   isShowPanel(!isPanelShow)
                 } else {
                   return null
