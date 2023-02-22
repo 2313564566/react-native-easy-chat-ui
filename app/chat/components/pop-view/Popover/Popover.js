@@ -4,7 +4,8 @@
 
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {StyleSheet, View, ViewPropTypes, PixelRatio} from 'react-native'
+import {StyleSheet, View, PixelRatio} from 'react-native'
+import {ViewPropTypes} from "deprecated-react-native-prop-types";
 const pixelSize = (function () {
   let pixelRatio = PixelRatio.get()
   if (pixelRatio >= 3) return 0.333
