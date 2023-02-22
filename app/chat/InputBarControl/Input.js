@@ -8,7 +8,7 @@ import {
 
 class Input extends PureComponent {
   render () {
-    const { enabled, onFocus, placeholder, onContentSizeChange, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
+    const { enabled, onFocus, placeholder, onContentSizeChange,onSubmit, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
     return (
       <TouchableOpacity
         disabled={!enabled}
@@ -19,7 +19,7 @@ class Input extends PureComponent {
       >
         <TextInput
           ref={e => (this.input = e)}
-          multiline
+          multiline={false}
           blurOnSubmit={false}
           editable={!enabled}
           placeholder={placeholder}
@@ -27,8 +27,11 @@ class Input extends PureComponent {
           onContentSizeChange={onContentSizeChange}
           underlineColorAndroid='transparent'
           onChangeText={textChange}
+          onSubmitEditing={onSubmit}
+          returnKeyLabel='send'
+          returnKeyType='send'
           value={messageContent}
-          style={[styles.commentBar__input, { height: Math.max(35 + inputHeightFix, inputChangeSize) }, inputStyle]}
+          style={[styles.commentBar__input, { padding: Platform.OS === 'ios'?8:0,height: Math.max(35 + inputHeightFix, inputChangeSize) }, inputStyle]}
         />
       </TouchableOpacity>
     )
