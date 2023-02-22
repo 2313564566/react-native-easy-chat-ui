@@ -1,12 +1,13 @@
 # 主要改动
-当 RN > 0.69 `ViewPropTypes` 不能用了，用 `deprecated-react-native-prop-types` 代替合并代码。
+1、当 RN > 0.69 `ViewPropTypes` 不能用了，用 `deprecated-react-native-prop-types` 代替合并代码。
 
-增加依赖：`react-native-pager-view`，修复bug https://github.com/DaiYz/react-native-easy-chat-ui/issues/98#issue-976272549
+2、增加依赖：`react-native-pager-view`，修复bug https://github.com/DaiYz/react-native-easy-chat-ui/issues/98#issue-976272549
 
-修复警告：
+3、修复警告：
 ```bash
 Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid; it must be a function, usually from the `prop-types` package, but received `undefined`.
 ```
+4、改成微信发送风格，去掉发送按钮图标
 
 # react-native-easy-chat-ui
 
