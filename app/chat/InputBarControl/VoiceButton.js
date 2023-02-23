@@ -18,7 +18,7 @@ class VoiceButton extends PureComponent {
 
   _onPanState = (e) => {
     const { showVoice, voiceEnd } = this.props
-    if (e.state === State.END) {
+    if (e.state === State.END || e.state === State.FAILED) {
       // 结束
       if (showVoice) {
         voiceEnd()
