@@ -70,9 +70,8 @@ export default class EmojiPanel extends PureComponent {
                         key={i}
                         style={{ width: (width - 40) / 8, height: 45, justifyContent: 'center', alignItems: 'center', paddingTop: 15, paddingHorizontal: 20 }}
                         onPress={() => {
-                          this.props.onPress(list.value)
-                        }
-                        }
+                          this.props.onPress(list)
+                        }}
                       >
                         <ImageComponent source={{uri: list.url}}
                           resizeMode={'contain'} style={{ width: 30, height: 30 }} />
@@ -87,11 +86,6 @@ export default class EmojiPanel extends PureComponent {
           <View style={{ height: 30 }}>
             <Control index={this.state.pageIndex} total={this.total} />
           </View>
-          {/* <View style={{height: 40, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center'}}> */}
-          {/* <View style={{width: 40, height: 40, backgroundColor: '#f9f9f9', justifyContent: 'center', alignItems: 'center', padding: 5}}> */}
-          {/* /!*<Image source={defaultEmoji.default} style={{flex: 1}} resizeMode={'contain'} />*!/ */}
-          {/* </View> */}
-          {/* </View> */}
         </ViewPagerAndroidContainer>
       </Animated.View>
     )
