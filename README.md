@@ -13,8 +13,13 @@ Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid
 ```js
 {
   name: "文字名称",
-  url : "emoji的url"
+  url : "emoji的静图url",
+  gif_url: "emoji的动图url"
 }
+```
+使用远程图标，减少包大小，建议使用FastImage组件缓存，
+```jsx
+<ChatScreen ... CustomImageComponent={FastImage} />
 ```
 每页24个，创建分页的例子
 ```js
@@ -30,7 +35,11 @@ useEffect(() => {
                   page++;
                   emojiGroupList[page] = [];
               }
-              emojiGroupList[page].push({name: userinfo.emoji_list[i].name, url: parseUrl(userinfo.emoji_list[i].emoji)});
+              emojiGroupList[page].push({
+                        name: userinfo.emoji_list[i].name,
+                        url: parseUrl(userinfo.emoji_list[i].emoji),
+                        gif_url: parseUrl(userinfo.emoji_list[i].emoji_gif),
+              });
           }
       }
       setEmojiList(emojiGroupList);
@@ -45,7 +54,7 @@ useEffect(() => {
 -i xxxx.aac -c:v mpeg3 xxxx.mp3 
 ```
 # 关于MQTT库
-那些原生库都不太好用，还是存js实现的基于websocket的比较好
+那些原生库都不太好用，还是纯js实现的基于websocket的比较好
 ```shell
 yarn add react_native_mqtt
 ```
