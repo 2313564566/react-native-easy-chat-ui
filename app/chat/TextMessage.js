@@ -11,11 +11,6 @@ import {
 import { changeEmojiText } from './utils'
 const { width } = Dimensions.get('window')
 
-const PATTERNS = {
-  url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/i,
-  phone: /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}/,
-  emoji: new RegExp('\\/\\{[a-zA-Z_]{1,14}\\}')
-}
 export default class TextMessage extends PureComponent {
   render () {
     const { isSelf, message, messageErrorIcon, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent } = this.props

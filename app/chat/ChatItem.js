@@ -12,12 +12,6 @@ import VideoMessage from './VideoMessage'
 import VoiceMessage from './VoiceMessage'
 const { width } = Dimensions.get('window')
 
-// const PATTERNS = {
-//   url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/i,
-//   phone: /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}/,
-//   emoji: new RegExp('\\/\\{[a-zA-Z_]{1,14}\\}')
-// }
-
 export default class ChatItem extends PureComponent {
   constructor (props) {
     super(props)
@@ -53,46 +47,23 @@ export default class ChatItem extends PureComponent {
     this.setState({ loading: status })
   }
 
-  _matchContentString = (textContent, views, isSelf) => {
+  _matchContentString = (textContent, views, isSelf, type) => {
     // 匹配得到index并放入数组中
     const {leftMessageTextStyle, rightMessageTextStyle} = this.props
-    // if (textContent.length === 0) return
-    // let emojiIndex = textContent.search(PATTERNS.emoji)
-    // let checkIndexArray = []
-    //
-    // // 若匹配不到，则直接返回一个全文本
-    // if (emojiIndex === -1) {
-      views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent}</Text>)
-    // } else {
-    //   if (emojiIndex !== -1) {
-    //     checkIndexArray.push(emojiIndex)
-    //   }
-    //   // 取index最小者
-    //   let minIndex = Math.min(...checkIndexArray)
-    //   // 将0-index部分返回文本
-    //   views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'firstTextView' + (Math.random() * 100)}>{textContent.substring(0, minIndex)}</Text>)
-    //
-    //   // 将index部分作分别处理
-    //   this._matchEmojiString(textContent, views)
-    // }
+    switch(type){
+      case 'gift':
+        const {ImageComponent} = this.props
+        views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent.title}</Text>)
+        views.push(<ImageComponent style={styles.subEmojiStyle} resizeMethod={'auto'} source={{uri:textContent.icon}} />);
+        break;
+      case 'text':
+        views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent}</Text>)
+    }
   }
 
-  _matchEmojiString = (emojiStr, views, isSelf) => {
-    // const {ImageComponent} = this.props
-    // let castStr = emojiStr.match(PATTERNS.emoji)
-    // let emojiLength = castStr[0].length
-    //
-    // let emojiImg = EMOJIS_DATA[castStr[0]]
-    //
-    // if (emojiImg) {
-    //   views.push(<ImageComponent key={emojiStr} style={styles.subEmojiStyle} resizeMethod={'auto'} source={emojiImg} />)
-    // }
-    // this._matchContentString(emojiStr, views, isSelf)
-  }
-
-  _getActualText = (textContent, isSelf) => {
+  _getActualText = (textContent, isSelf, type) => {
     let views = []
-    this._matchContentString(textContent, views, isSelf)
+    this._matchContentString(textContent, views, isSelf, type)
     return views
   }
 
@@ -102,6 +73,7 @@ export default class ChatItem extends PureComponent {
     const { loading } = this.state
     switch (type) {
       case 'text':
+      case 'gift':
         if (this.props.renderTextMessage === undefined) {
           return (
             <TextMessage
@@ -113,7 +85,7 @@ export default class ChatItem extends PureComponent {
               isSelf={isSelf}
               messageErrorIcon={messageErrorIcon}
               message={message}
-              views={this._getActualText(content, isSelf)}
+              views={this._getActualText(content, isSelf, type)}
               onMessageLongPress={this.props.onMessageLongPress}
               onMessagePress={this.props.onMessagePress}
               rowId={this.props.rowId}
@@ -127,29 +99,6 @@ export default class ChatItem extends PureComponent {
           return this.props.renderTextMessage({ isOpen, isSelf, message, views: this._getActualText(message.content), index: parseInt(rowId) })
         }
       case 'image':
-        if (this.props.renderImageMessage === undefined) {
-          return (
-            <ImageMessage
-              ImageComponent={ImageComponent}
-              rightMessageBackground={this.props.rightMessageBackground}
-              leftMessageBackground={this.props.leftMessageBackground}
-              reSendMessage={reSendMessage}
-              isOpen={isOpen}
-              isSelf={isSelf}
-              messageErrorIcon={messageErrorIcon}
-              message={message}
-              onMessageLongPress={this.props.onMessageLongPress}
-              onMessagePress={this.props.onMessagePress}
-              rowId={this.props.rowId}
-              lastReadAt={this.props.lastReadAt}
-              showIsRead={this.props.showIsRead}
-              isReadStyle={this.props.isReadStyle}
-              chatType={this.props.chatType}
-            />
-          )
-        } else {
-          return this.props.renderImageMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
       case 'emoji':
         if (this.props.renderImageMessage === undefined) {
           return (
@@ -315,6 +264,7 @@ export default class ChatItem extends PureComponent {
 
   render () {
     const { user = {}, message, isOpen, selectMultiple, avatarStyle = {}, rowId, chatType, showUserName, userNameStyle, ImageComponent, itemContainerStyle = {} } = this.props
+    console.log("ChatItem...",user.id,message.targetId);
     const isSelf = user.id === message.targetId
     const {type} = message
     const avatar = isSelf ? user.avatar : message.chatInfo.avatar

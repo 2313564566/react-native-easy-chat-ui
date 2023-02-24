@@ -24,8 +24,6 @@ export default class InputBar extends PureComponent {
 
   renderIcon = () => {
     const { sendIcon, plusIcon, usePlus, messageContent, sendUnableIcon, ImageComponent } = this.props
-    const sendAbleIcon = sendIcon || <ImageComponent source={require('../../source/image/sendAble.png')} style={{ width: 30, height: 30 }} />
-    const sendUnableIconDefault = sendUnableIcon || <ImageComponent source={require('../../source/image/send.png')} style={{ width: 30, height: 30 }} />
     if (usePlus) {
       return plusIcon || <ImageComponent source={require('../../source/image/more.png')} style={{ width: 30, height: 30 }} />
     } else {
