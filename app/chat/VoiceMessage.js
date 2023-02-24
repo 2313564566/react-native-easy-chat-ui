@@ -131,9 +131,19 @@ export default class VoiceMessage extends PureComponent {
                   this.props.onMessageLongPress(this[`item_${this.props.rowId}`], 'voice', parseInt(this.props.rowId), message.content.uri, message)
                 }}
               >
-                <View style={[{ width: 40 + (message.content.length > 1 ? message.content.length * 2 : 0) }, { maxWidth: width - 160 }, { flexDirection: isSelf ? 'row-reverse' : 'row' }
+                <View style={[{ width: 60 + (message.content.length > 1 ? message.content.length * 5 : 0) },{alignItems:'center'}, { maxWidth: width - 160 }, { flexDirection: isSelf ? 'row-reverse' : 'row' }
                 ]}>
+                  {!isSelf &&
+                  <Text style={[{marginLeft: 8,marginRight: 2}]}>
+                    {`${message.content.length}"`}
+                  </Text>
+                  }
                   {this._renderIcon()}
+                  {isSelf &&
+                  <Text style={[{marginRight: 4}]}>
+                    {`${message.content.length}"`}
+                  </Text>
+                  }
                 </View>
               </TouchableOpacity>
               {/*{chatType !== 'group' && isSelf && (*/}
@@ -141,11 +151,6 @@ export default class VoiceMessage extends PureComponent {
               {/*    {this.props.lastReadAt && this.props.lastReadAt - message.time > 0 ? '已读' : '未读'}*/}
               {/*  </Text>*/}
               {/*)}*/}
-            </View>
-            <View style={{ justifyContent: 'flex-end' }}>
-              <Text style={[{ color: '#aaa', marginBottom: 4 }, isSelf ? { marginRight: 4 } : { marginLeft: 4 }]}>
-                {`${message.content.length}"`}
-              </Text>
             </View>
           </View>
           <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>

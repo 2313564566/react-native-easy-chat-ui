@@ -9,9 +9,9 @@ import {
   Animated,
   Easing,
   Clipboard,
-  Dimensions,
-  FlatList
+  Dimensions
 } from 'react-native'
+import {FlashList} from '@shopify/flash-list';
 import {ViewPropTypes as RNViewPropTypes} from 'deprecated-react-native-prop-types'
 import PropTypes from 'prop-types'
 import { getCurrentTime, changeEmojiText } from './utils'
@@ -21,6 +21,7 @@ import ChatItem from './ChatItem'
 import InputBar from './InputBarControl'
 import PanelContainer from './panelContainer'
 import DelPanel from './del'
+
 const { height, width } = Dimensions.get('window')
 const ViewPropTypes = RNViewPropTypes || View.propTypes
 let ImageComponent = Image
@@ -583,15 +584,16 @@ class ChatWindow extends PureComponent {
     return (
       <View style={{ backgroundColor: this.props.containerBackgroundColor, flex: 1, position: 'relative' }} onLayout={(e) => this.rootHeight = e.nativeEvent.layout.height}>
         {this.renderBg(chatBackgroundImage)}
-        <Animated.View style={Platform.OS === 'android' ? { flex: 1, backgroundColor: 'transparent' } : {
+        <Animated.View style={Platform.OS === 'android' ? { flex: 1, backgroundColor: 'transparent' ,paddingTop: this.HeaderHeight } : {
           backgroundColor: 'transparent',
+          paddingTop: this.HeaderHeight,
           height: this.visibleHeight.interpolate({
             inputRange: [0, 1],
             outputRange: [
-              height - this.HeaderHeight,
+              height,
               keyboardShow
-                ? height - keyboardHeight - this.HeaderHeight
-                : height - this.HeaderHeight - panelContainerHeight
+                ? height - keyboardHeight
+                : height - panelContainerHeight
             ]
           })
         }}
@@ -601,8 +603,9 @@ class ChatWindow extends PureComponent {
             onPress={() => this.closeAll()}
             style={[{ flex: 1, backgroundColor: 'transparent' }, this.props.chatWindowStyle]}
           >
-            <FlatList
+            <FlashList
               {...this.props.flatListProps}
+              estimatedItemSize={100}
               ref={e => (this.chatList = e)}
               inverted={inverted}
               data={currentList}

@@ -49,12 +49,22 @@ export default class ChatItem extends PureComponent {
 
   _matchContentString = (textContent, views, isSelf, type) => {
     // 匹配得到index并放入数组中
-    const {leftMessageTextStyle, rightMessageTextStyle} = this.props
+    const {leftMessageTextStyle, rightMessageTextStyle, ImageComponent} = this.props
     switch(type){
       case 'gift':
-        const {ImageComponent} = this.props
-        views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent.title}</Text>)
-        views.push(<ImageComponent style={styles.subEmojiStyle} resizeMethod={'auto'} source={{uri:textContent.icon}} />);
+        if(textContent.icon2 !== ''){
+          views.push(<ImageComponent key={0} style={[styles.subEmojiStyle,{width:30,height:30}]} resizeMethod={'auto'} source={{uri:textContent.icon1}} />);
+          views.push(<Text key={1} style={[isSelf ? rightMessageTextStyle : leftMessageTextStyle,{marginRight:5,marginLeft:5}]} key={'emptyTextView' + (Math.random() * 100)}>{textContent.title}</Text>)
+          views.push(<ImageComponent key={2} style={[styles.subEmojiStyle,{width:30,height:30}]} resizeMethod={'auto'} source={{uri:textContent.icon2}} />);
+        }else{
+          views.push(<Text key={0} style={[isSelf ? rightMessageTextStyle : leftMessageTextStyle,{marginRight:5}]} key={'emptyTextView' + (Math.random() * 100)}>{textContent.title}</Text>)
+          views.push(<ImageComponent key={1} style={[styles.subEmojiStyle,{width:30,height:30}]} resizeMethod={'auto'} source={{uri:textContent.icon1}} />);
+        }
+
+        break;
+      case 'videoCall':
+        views.push(<ImageComponent key={1} style={[styles.subEmojiStyle,{marginRight:5}]} resizeMethod={'auto'} source={{uri:textContent.icon}} />);
+        views.push(<Text key={0} style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent.title}</Text>)
         break;
       case 'text':
         views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent}</Text>)
@@ -74,6 +84,7 @@ export default class ChatItem extends PureComponent {
     switch (type) {
       case 'text':
       case 'gift':
+      case 'videoCall':
         if (this.props.renderTextMessage === undefined) {
           return (
             <TextMessage
@@ -192,12 +203,12 @@ export default class ChatItem extends PureComponent {
         } else {
           return this.props.renderShareMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
         }
-      case 'videoCall':
-        if (this.props.renderVideoCallMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderVideoCallMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
+      // case 'videoCall':
+      //   if (this.props.renderVideoCallMessage === undefined) {
+      //     return null
+      //   } else {
+      //     return this.props.renderVideoCallMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
+      //   }
       case 'voiceCall':
         if (this.props.renderVoiceCallMessage === undefined) {
           return null
@@ -264,7 +275,6 @@ export default class ChatItem extends PureComponent {
 
   render () {
     const { user = {}, message, isOpen, selectMultiple, avatarStyle = {}, rowId, chatType, showUserName, userNameStyle, ImageComponent, itemContainerStyle = {} } = this.props
-    console.log("ChatItem...",user.id,message.targetId);
     const isSelf = user.id === message.targetId
     const {type} = message
     const avatar = isSelf ? user.avatar : message.chatInfo.avatar
@@ -396,7 +406,7 @@ const styles = StyleSheet.create({
     minHeight: 30
   },
   avatar: {
-    marginLeft: 8,
+    marginLeft:0,
     borderRadius: 24,
     width: 48,
     height: 48
