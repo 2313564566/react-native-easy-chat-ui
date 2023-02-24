@@ -16,7 +16,7 @@ export default class ImageMessage extends PureComponent {
           activeOpacity={1}
           collapsable={false}
           disabled={isOpen}
-          onPress={() => this.props.onMessagePress('image', parseInt(this.props.rowId), message.content.uri, message)}
+          onPress={() => if(message.type ==='image') this.props.onMessagePress('image', parseInt(this.props.rowId), message.content.uri, message)}
           style={{ backgroundColor: 'transparent', padding: 5, borderRadius: 5 }}
           onLongPress={() => {
             this.props.onMessageLongPress(this[`item_${this.props.rowId}`], 'image', parseInt(this.props.rowId), message.content.uri, message)

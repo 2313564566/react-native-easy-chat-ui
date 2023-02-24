@@ -150,6 +150,30 @@ export default class ChatItem extends PureComponent {
         } else {
           return this.props.renderImageMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
         }
+      case 'emoji':
+        if (this.props.renderImageMessage === undefined) {
+          return (
+              <ImageMessage
+                  ImageComponent={ImageComponent}
+                  rightMessageBackground={this.props.rightMessageBackground}
+                  leftMessageBackground={this.props.leftMessageBackground}
+                  reSendMessage={reSendMessage}
+                  isOpen={isOpen}
+                  isSelf={isSelf}
+                  messageErrorIcon={messageErrorIcon}
+                  message={message}
+                  onMessageLongPress={this.props.onMessageLongPress}
+                  onMessagePress={this.props.onMessagePress}
+                  rowId={this.props.rowId}
+                  lastReadAt={this.props.lastReadAt}
+                  showIsRead={this.props.showIsRead}
+                  isReadStyle={this.props.isReadStyle}
+                  chatType={this.props.chatType}
+              />
+          )
+        } else {
+          return this.props.renderImageMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
+        }
       case 'voice':
         if (this.props.renderVoiceMessage === undefined) {
           return (
