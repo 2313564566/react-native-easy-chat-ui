@@ -9,6 +9,58 @@ Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid
 ```
 4、改成微信发送风格，去掉发送按钮图标，表情图标始终保持不变
 
+5、去掉默认的emoji图标，改成自定义的表情图标，增加`emojiList`属性，结构如下：
+```js
+{
+  name: "文字名称",
+  url : "emoji的静图url",
+  gif_url: "emoji的动图url"
+}
+```
+使用远程图标，减少包大小，建议使用FastImage组件缓存，
+```jsx
+<ChatScreen ... CustomImageComponent={FastImage} />
+```
+每页24个，创建分页的例子
+```js
+const [emojiList, setEmojiList] = useState([]);
+const [isInit, setIsInit] = useState(false);
+useEffect(() => {
+    if (!isInit) {
+      let emojiGroupList = [];
+      if(emojiList.length === 0) {
+          let page = -1;
+          for (let i = 0; i < userinfo.emoji_list.length; i++) {
+              if (i % 24 === 0) {
+                  page++;
+                  emojiGroupList[page] = [];
+              }
+              emojiGroupList[page].push({
+                        name: userinfo.emoji_list[i].name,
+                        url: parseUrl(userinfo.emoji_list[i].emoji),
+                        gif_url: parseUrl(userinfo.emoji_list[i].emoji_gif),
+              });
+          }
+      }
+      setEmojiList(emojiGroupList);
+      setIsInit(true);
+    }
+},[]);
+```
+
+# 关于 aac 转 mp3 
+使用`ffmpeg-kit-react-native` 和子库 `audio-lts`，命令文本：
+```shell
+-i xxxx.aac -c:v mpeg3 xxxx.mp3 
+```
+# 关于MQTT库
+那些原生库都不太好用，还是纯js实现的基于websocket的比较好
+```shell
+yarn add react_native_mqtt
+```
+有个坑，库比较旧，依赖的 async-storage 不能用，更换为 `@react-native-async-storage/async-storage`
+
+
 # react-native-easy-chat-ui
 
 [中文文档](./cn/README.md)
@@ -412,6 +464,7 @@ renderSystemMessage| undefined | Custom message system, (data) => {}
       inputContainerStyle: ViewPropTypes.style,
       inputHeightFix: PropTypes.number,
       useEmoji: PropTypes.bool,
+      emojiList: PropTypes.array, // <<------- 新属性
       usePlus: PropTypes.bool,
       /* voiceProps */
       useVoice: PropTypes.bool,
