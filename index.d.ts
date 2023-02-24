@@ -1,5 +1,4 @@
 import ChatView from './app/chat/ChatView'
-import { EMOJIS_DATA } from './app/source/emojis/index'
 import { ViewStyle } from 'react-native'
 import { PureComponent } from 'react'
 

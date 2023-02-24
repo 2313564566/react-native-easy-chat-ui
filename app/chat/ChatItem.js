@@ -10,14 +10,13 @@ import TextMessage from './TextMessage'
 import ImageMessage from './ImageMessage'
 import VideoMessage from './VideoMessage'
 import VoiceMessage from './VoiceMessage'
-import { EMOJIS_DATA } from '../source/emojis'
 const { width } = Dimensions.get('window')
 
-const PATTERNS = {
-  url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/i,
-  phone: /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}/,
-  emoji: new RegExp('\\/\\{[a-zA-Z_]{1,14}\\}')
-}
+// const PATTERNS = {
+//   url: /(https?:\/\/|www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/i,
+//   phone: /[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}/,
+//   emoji: new RegExp('\\/\\{[a-zA-Z_]{1,14}\\}')
+// }
 
 export default class ChatItem extends PureComponent {
   constructor (props) {
@@ -57,38 +56,38 @@ export default class ChatItem extends PureComponent {
   _matchContentString = (textContent, views, isSelf) => {
     // 匹配得到index并放入数组中
     const {leftMessageTextStyle, rightMessageTextStyle} = this.props
-    if (textContent.length === 0) return
-    let emojiIndex = textContent.search(PATTERNS.emoji)
-    let checkIndexArray = []
-
-    // 若匹配不到，则直接返回一个全文本
-    if (emojiIndex === -1) {
+    // if (textContent.length === 0) return
+    // let emojiIndex = textContent.search(PATTERNS.emoji)
+    // let checkIndexArray = []
+    //
+    // // 若匹配不到，则直接返回一个全文本
+    // if (emojiIndex === -1) {
       views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'emptyTextView' + (Math.random() * 100)}>{textContent}</Text>)
-    } else {
-      if (emojiIndex !== -1) {
-        checkIndexArray.push(emojiIndex)
-      }
-      // 取index最小者
-      let minIndex = Math.min(...checkIndexArray)
-      // 将0-index部分返回文本
-      views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'firstTextView' + (Math.random() * 100)}>{textContent.substring(0, minIndex)}</Text>)
-
-      // 将index部分作分别处理
-      this._matchEmojiString(textContent.substring(minIndex), views)
-    }
+    // } else {
+    //   if (emojiIndex !== -1) {
+    //     checkIndexArray.push(emojiIndex)
+    //   }
+    //   // 取index最小者
+    //   let minIndex = Math.min(...checkIndexArray)
+    //   // 将0-index部分返回文本
+    //   views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle} key={'firstTextView' + (Math.random() * 100)}>{textContent.substring(0, minIndex)}</Text>)
+    //
+    //   // 将index部分作分别处理
+    //   this._matchEmojiString(textContent, views)
+    // }
   }
 
   _matchEmojiString = (emojiStr, views, isSelf) => {
-    const {ImageComponent} = this.props
-    let castStr = emojiStr.match(PATTERNS.emoji)
-    let emojiLength = castStr[0].length
-
-    let emojiImg = EMOJIS_DATA[castStr[0]]
-
-    if (emojiImg) {
-      views.push(<ImageComponent key={emojiStr} style={styles.subEmojiStyle} resizeMethod={'auto'} source={emojiImg} />)
-    }
-    this._matchContentString(emojiStr.substring(emojiLength), views, isSelf)
+    // const {ImageComponent} = this.props
+    // let castStr = emojiStr.match(PATTERNS.emoji)
+    // let emojiLength = castStr[0].length
+    //
+    // let emojiImg = EMOJIS_DATA[castStr[0]]
+    //
+    // if (emojiImg) {
+    //   views.push(<ImageComponent key={emojiStr} style={styles.subEmojiStyle} resizeMethod={'auto'} source={emojiImg} />)
+    // }
+    // this._matchContentString(emojiStr, views, isSelf)
   }
 
   _getActualText = (textContent, isSelf) => {

@@ -27,6 +27,7 @@ class VoiceButton extends PureComponent {
   }
 
   _onPan = (e) => {
+    console.log("audioHasPermission",audioHasPermission);
     const { inputHeight, changeVoiceStatus, audioHasPermission } = this.props
     const compare = height - inputHeight
     if (!audioHasPermission && Platform.OS === 'android') return null
@@ -38,6 +39,7 @@ class VoiceButton extends PureComponent {
   }
 
   _onTab = (e) => {
+    console.log("onTab",e);
     const { showVoice, voiceStart, voiceEnd } = this.props
     if (e.state === State.BEGAN) {
       if (showVoice) {

@@ -9,7 +9,7 @@ export default class PanelContainer extends PureComponent {
   }
 
   render () {
-    const { panelContainerHeight, visibleHeight, ImageComponent, panelHeight, emojiHeight, panelContainerBackgroundColor, onEmojiSelected } = this.props
+    const { panelContainerHeight, visibleHeight, ImageComponent,iphoneXBottomPadding, panelHeight, emojiList, emojiHeight, panelContainerBackgroundColor, onEmojiSelected } = this.props
     return (
       <Animated.View
         style={[{
@@ -43,6 +43,8 @@ export default class PanelContainer extends PureComponent {
             ? <EmojiPanel
               ImageComponent={ImageComponent}
               emojiHeight={emojiHeight}
+              emojiList={emojiList}
+              iphoneXBottomPadding={iphoneXBottomPadding}
               panelContainerHeight={panelContainerHeight}
               onPress={onEmojiSelected}
             />

@@ -9,7 +9,7 @@ export default class PanelContainer extends PureComponent {
   }
 
   render () {
-    const { panelContainerHeight, visibleHeight, ImageComponent, panelHeight, emojiHeight, onEmojiSelected} = this.props
+    const { panelContainerHeight, visibleHeight, ImageComponent,emojiList, panelHeight, emojiHeight, onEmojiSelected} = this.props
     return (
       <Animated.View
       >
@@ -29,6 +29,7 @@ export default class PanelContainer extends PureComponent {
             ? <EmojiPanel
               ImageComponent={ImageComponent}
               emojiHeight={emojiHeight}
+              emojiList={emojiList}
               panelContainerHeight={panelContainerHeight}
               onPress={onEmojiSelected}
             />

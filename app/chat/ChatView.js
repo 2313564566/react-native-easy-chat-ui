@@ -18,7 +18,7 @@ import { getCurrentTime, changeEmojiText } from './utils'
 import Voice from './VoiceView'
 import PopView from './components/pop-view'
 import ChatItem from './ChatItem'
-import { EMOJIS_ZH } from '../source/emojis'
+// import { EMOJIS_ZH } from '../source/emojis'
 import InputBar from './InputBarControl'
 // import InputBar from './InputBar'
 import PanelContainer from './panelContainer'
@@ -555,106 +555,106 @@ class ChatWindow extends PureComponent {
   }
 
   _onEmojiSelected = (code) => {
-    const emojiReg = new RegExp('\\[[^\\]]+\\]', 'g')
-    if (code === '') {
-      return
-    }
-
-    let lastText = ''
-    const currentTextLength = this.state.messageContent.length
-
-    if (code === '/{del}') { // 删除键
-      if (currentTextLength === 0) {
-        return
-      }
-
-      if (this.state.cursorIndex < currentTextLength) { // 光标在字符串中间
-        const emojiIndex = this.state.messageContent.search(emojiReg) // 匹配到的第一个表情符位置
-
-        if (emojiIndex === -1) { // 没有匹配到表情符
-          const preStr = this.state.messageContent.substring(0, this.state.cursorIndex)
-          const nextStr = this.state.messageContent.substring(this.state.cursorIndex)
-          lastText = preStr.substring(0, preStr.length - 1) + nextStr
-
-          this.setState({
-            cursorIndex: preStr.length - 1
-          })
-        } else {
-          const preStr = this.state.messageContent.substring(0, this.state.cursorIndex)
-          const nextStr = this.state.messageContent.substring(this.state.cursorIndex)
-
-          const lastChar = preStr.charAt(preStr.length - 1)
-          if (lastChar === ']') {
-            const castArray = preStr.match(emojiReg)
-
-            if (!castArray) {
-              const cast = castArray[castArray.length - 1]
-
-              lastText = preStr.substring(0, preStr.length - cast.length) + nextStr
-
-              this.setState({
-                cursorIndex: preStr.length - cast.length
-              })
-            } else {
-              lastText = preStr.substring(0, preStr.length - 1) + nextStr
-
-              this.setState({
-                cursorIndex: preStr.length - 1
-              })
-            }
-          } else {
-            lastText = preStr.substring(0, preStr.length - 1) + nextStr
-            this.setState({
-              cursorIndex: preStr.length - 1
-            })
-          }
-        }
-      } else { // 光标在字符串最后
-        const lastChar = this.state.messageContent.charAt(currentTextLength - 1)
-        if (lastChar === ']') {
-          const castArray = this.state.messageContent.match(emojiReg)
-
-          if (castArray) {
-            const cast = castArray[castArray.length - 1]
-            lastText = this.state.messageContent.substring(0, this.state.messageContent.length - cast.length)
-
-            this.setState({
-              cursorIndex: this.state.messageContent.length - cast.length
-            })
-          } else {
-            lastText = this.state.messageContent.substring(0, this.state.messageContent.length - 1)
-
-            this.setState({
-              cursorIndex: this.state.messageContent.length - 1
-            })
-          }
-        } else {
-          lastText = this.state.messageContent.substring(0, currentTextLength - 1)
-          this.setState({
-            cursorIndex: currentTextLength - 1
-          })
-        }
-      }
-    } else {
-      if (currentTextLength >= this.state.cursorIndex) {
-        lastText = this.state.messageContent + EMOJIS_ZH[code]
-
-        this.setState({
-          cursorIndex: lastText.length
-        })
-      } else {
-        const preTemp = this.state.messageContent.substring(0, this.state.cursorIndex)
-        const nextTemp = this.state.messageContent.substring(this.state.cursorIndex, currentTextLength)
-        lastText = preTemp + EMOJIS_ZH[code] + nextTemp
-
-        this.setState({
-          cursorIndex: this.state.cursorIndex + EMOJIS_ZH[code].length
-        })
-      }
-    }
-    this.setState({
-      messageContent: lastText
-    })
+    // const emojiReg = new RegExp('\\[[^\\]]+\\]', 'g')
+    // if (code === '') {
+    //   return
+    // }
+    //
+    // let lastText = ''
+    // const currentTextLength = this.state.messageContent.length
+    //
+    // if (code === '/{del}') { // 删除键
+    //   if (currentTextLength === 0) {
+    //     return
+    //   }
+    //
+    //   if (this.state.cursorIndex < currentTextLength) { // 光标在字符串中间
+    //     const emojiIndex = this.state.messageContent.search(emojiReg) // 匹配到的第一个表情符位置
+    //
+    //     if (emojiIndex === -1) { // 没有匹配到表情符
+    //       const preStr = this.state.messageContent.substring(0, this.state.cursorIndex)
+    //       const nextStr = this.state.messageContent.substring(this.state.cursorIndex)
+    //       lastText = preStr.substring(0, preStr.length - 1) + nextStr
+    //
+    //       this.setState({
+    //         cursorIndex: preStr.length - 1
+    //       })
+    //     } else {
+    //       const preStr = this.state.messageContent.substring(0, this.state.cursorIndex)
+    //       const nextStr = this.state.messageContent.substring(this.state.cursorIndex)
+    //
+    //       const lastChar = preStr.charAt(preStr.length - 1)
+    //       if (lastChar === ']') {
+    //         const castArray = preStr.match(emojiReg)
+    //
+    //         if (!castArray) {
+    //           const cast = castArray[castArray.length - 1]
+    //
+    //           lastText = preStr.substring(0, preStr.length - cast.length) + nextStr
+    //
+    //           this.setState({
+    //             cursorIndex: preStr.length - cast.length
+    //           })
+    //         } else {
+    //           lastText = preStr.substring(0, preStr.length - 1) + nextStr
+    //
+    //           this.setState({
+    //             cursorIndex: preStr.length - 1
+    //           })
+    //         }
+    //       } else {
+    //         lastText = preStr.substring(0, preStr.length - 1) + nextStr
+    //         this.setState({
+    //           cursorIndex: preStr.length - 1
+    //         })
+    //       }
+    //     }
+    //   } else { // 光标在字符串最后
+    //     const lastChar = this.state.messageContent.charAt(currentTextLength - 1)
+    //     if (lastChar === ']') {
+    //       const castArray = this.state.messageContent.match(emojiReg)
+    //
+    //       if (castArray) {
+    //         const cast = castArray[castArray.length - 1]
+    //         lastText = this.state.messageContent.substring(0, this.state.messageContent.length - cast.length)
+    //
+    //         this.setState({
+    //           cursorIndex: this.state.messageContent.length - cast.length
+    //         })
+    //       } else {
+    //         lastText = this.state.messageContent.substring(0, this.state.messageContent.length - 1)
+    //
+    //         this.setState({
+    //           cursorIndex: this.state.messageContent.length - 1
+    //         })
+    //       }
+    //     } else {
+    //       lastText = this.state.messageContent.substring(0, currentTextLength - 1)
+    //       this.setState({
+    //         cursorIndex: currentTextLength - 1
+    //       })
+    //     }
+    //   }
+    // } else {
+    //   if (currentTextLength >= this.state.cursorIndex) {
+    //     lastText = this.state.messageContent + EMOJIS_ZH[code]
+    //
+    //     this.setState({
+    //       cursorIndex: lastText.length
+    //     })
+    //   } else {
+    //     const preTemp = this.state.messageContent.substring(0, this.state.cursorIndex)
+    //     const nextTemp = this.state.messageContent.substring(this.state.cursorIndex, currentTextLength)
+    //     lastText = preTemp + EMOJIS_ZH[code] + nextTemp
+    //
+    //     this.setState({
+    //       cursorIndex: this.state.cursorIndex + EMOJIS_ZH[code].length
+    //     })
+    //   }
+    // }
+    // this.setState({
+    //   messageContent: lastText
+    // })
   }
 
   savePressIndex = (id) => {
@@ -853,6 +853,7 @@ class ChatWindow extends PureComponent {
             panelContainerHeight={panelContainerHeight}
             usePlus={this.props.usePlus}
             useEmoji={this.props.useEmoji}
+            emojiList={this.props.emojiList}
             panelHeight={this.panelHeight}
             isIphoneX={this.isIphoneX}
             HeaderHeight={this.HeaderHeight}
@@ -978,6 +979,7 @@ ChatWindow.propTypes = {
   inputContainerStyle: ViewPropTypes.style,
   inputHeightFix: PropTypes.number,
   useEmoji: PropTypes.bool,
+  emojiList: PropTypes.array,
   usePlus: PropTypes.bool,
   /* voiceProps */
   useVoice: PropTypes.bool,
@@ -1055,6 +1057,7 @@ ChatWindow.defaultProps = {
   rightMessageBackground: '#a0e75a',
   useVoice: true,
   useEmoji: true,
+  emojiList: [],
   usePlus: true,
   iphoneXBottomPadding: 34, // 安全区域
   onEndReachedThreshold: 0.1,

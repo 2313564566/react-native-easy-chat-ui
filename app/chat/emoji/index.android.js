@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, Platform, Dimensions, Animated, Touchable
 import ViewPagerAndroid from 'react-native-pager-view'
 import ViewPagerAndroidContainer from '../components/android-container'
 import Control from './control'
-import { EMOJIS_DATA, DEFAULT_EMOJI } from '../../source/emojis'
+// import { EMOJIS_DATA, DEFAULT_EMOJI } from '../../source/emojis'
 const { width, height } = Dimensions.get('window')
 
 export default class EmojiPanel extends PureComponent {
@@ -60,7 +60,7 @@ export default class EmojiPanel extends PureComponent {
             scrollEventThrottle={200}
           >
             {
-              DEFAULT_EMOJI.map((item, index) => {
+              this.props.emojiList.map((item, index) => {
                 this.total += 1
                 return <View key={index} style={{ width, flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 20, marginTop: 18 }} >
                   {
@@ -74,7 +74,7 @@ export default class EmojiPanel extends PureComponent {
                         }
                         }
                       >
-                        <ImageComponent source={list.value === '/{del}' ? require('../../source/emojis/ic_emoji_del.png') : EMOJIS_DATA[list.value]}
+                        <ImageComponent source={{uri: list.url}}
                           resizeMode={'contain'} style={{ width: 30, height: 30 }} />
                       </TouchableOpacity>
                     )
