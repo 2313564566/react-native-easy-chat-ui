@@ -9,6 +9,8 @@ Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid
 ```
 4、改成微信发送风格，去掉发送按钮图标，表情图标始终保持不变
 
+5、去掉默认的emoji图标，改成自定义的表情图标，增加emojiList属性
+
 # react-native-easy-chat-ui
 
 [中文文档](./cn/README.md)
