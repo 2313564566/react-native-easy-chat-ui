@@ -38,6 +38,7 @@ export default class InputBar extends PureComponent {
 
   render () {
     const {
+      ref,
       messageContent,
       onSubmitEditing = () => {},
       textChange = () => {}, onMethodChange = () => {}, onContentSizeChange = () => {},
@@ -67,19 +68,22 @@ export default class InputBar extends PureComponent {
       voiceStart,
       rootHeight,
       voiceEnd,
-      changeVoiceStatus
+      changeVoiceStatus,
+      aniKeybordWillShow,
+      setTextInputRef,
+      autoFocus
     } = this.props
     const enabled = (() => {
       if (Platform.OS === 'android') {
         if (isPanelShow) {
-          return true
+          return false
         }
         if (isEmojiShow) {
-          return true
+          return false
         }
-        return false
+        return true
       } else {
-        return false
+        return true;
       }
     })()
     return (
@@ -89,6 +93,7 @@ export default class InputBar extends PureComponent {
         isIphoneX={isIphoneX}
         xHeight={xHeight}
         inputContainerStyle={inputContainerStyle}
+        aniKeybordWillShow={aniKeybordWillShow}
       >
         {
           useVoice
@@ -118,11 +123,13 @@ export default class InputBar extends PureComponent {
               changeVoiceStatus={changeVoiceStatus}
               />
             : <Input
-              enabled={enabled}
               onFocus={onFocus}
               placeholder={placeholder}
               onContentSizeChange={onContentSizeChange}
               textChange={textChange}
+              enabled={enabled}
+              autoFocus={autoFocus}
+              setTextInputRef={setTextInputRef}
               onSubmit={() => {
                 console.log("send text",messageContent);
                 onSubmitEditing('text', messageContent);

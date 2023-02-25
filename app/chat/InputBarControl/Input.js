@@ -3,37 +3,38 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Pressable
 } from 'react-native'
 
 class Input extends PureComponent {
   render () {
-    const { enabled, onFocus, placeholder, onContentSizeChange,onSubmit, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
+    const { enabled,autoFocus,setTextInputRef, onFocus, placeholder, onContentSizeChange,onSubmit, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
+    console.log("autoFocus=",autoFocus);
     return (
-      <TouchableOpacity
-        disabled={!enabled}
-        activeOpacity={1}
+      <Pressable
         onPress={() => {
           onFocus()
         }}
       >
         <TextInput
-          ref={e => (this.input = e)}
+          ref={e => (setTextInputRef(e))}
           multiline={false}
           blurOnSubmit={false}
-          editable={!enabled}
+          editable={enabled}
+          autoFocus={autoFocus}
           placeholder={placeholder}
           placeholderTextColor='#5f5d70'
-          onContentSizeChange={onContentSizeChange}
           underlineColorAndroid='transparent'
           onChangeText={textChange}
           onSubmitEditing={onSubmit}
           returnKeyLabel='send'
           returnKeyType='send'
+          enablesReturnKeyAutomatically={true}
           value={messageContent}
-          style={[styles.commentBar__input, { padding: Platform.OS === 'ios'?8:0,height: Math.max(35 + inputHeightFix, inputChangeSize) }, inputStyle]}
+          style={[styles.commentBar__input, { padding: Platform.OS === 'ios'?8:0,height: 35 }, inputStyle]}
         />
-      </TouchableOpacity>
+      </Pressable>
     )
   }
 }
