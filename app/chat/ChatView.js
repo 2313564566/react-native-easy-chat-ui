@@ -221,7 +221,7 @@ class ChatWindow extends PureComponent {
         );
         this.setState({saveChangeSize: this.state.inputChangeSize});
         this.time && clearTimeout(this.time);
-        this.time = setTimeout(() => this.refTextInput.focus(), 300);
+        this.time = setTimeout(() => this.refTextInput && this.refTextInput.focus(), 300);
         if (!this.state.showVoice && this.state.panelShow) {
             this.setState({xHeight: this.props.iphoneXBottomPadding});
             return this.closePanel(true);
@@ -294,7 +294,7 @@ class ChatWindow extends PureComponent {
             if(panelShow) this.closePanel();
             this.refTextInput.blur();
             setTimeout(() => {
-                this.refTextInput.focus();
+                this.refTextInput && this.refTextInput.focus();
             },100);
             // this.setState({});
         }
@@ -344,7 +344,7 @@ class ChatWindow extends PureComponent {
         const {keyboardShow, panelShow, emojiShow} = this.state;
         if (Platform.OS === 'ios') {
             if (panelShow) {
-                return this.refTextInput.focus();
+                return this.refTextInput && this.refTextInput.focus();
             } else {
                 if (emojiShow) {
                     return this.closeEmoji(false, () => this.showPanel());
@@ -367,7 +367,7 @@ class ChatWindow extends PureComponent {
         } else {
             if (panelShow) {
                 return this.closePanel(true, () => {
-                    this.refTextInput.focus();
+                    this.refTextInput && this.refTextInput.focus();
                 });
             } else {
                 if (emojiShow) {
@@ -432,7 +432,7 @@ class ChatWindow extends PureComponent {
         const {showVoice} = this.state;
         if (Platform.OS === 'ios') {
             if (emojiShow) {
-                return this.refTextInput.focus();
+                return this.refTextInput && this.refTextInput.focus();
             }
             if (panelShow) {
                 return this.closePanel(false, () => this.showEmoji());
@@ -453,7 +453,7 @@ class ChatWindow extends PureComponent {
             }
         } else {
             if (emojiShow) {
-                return this.closeEmoji(true, () => this.refTextInput.focus());
+                return this.closeEmoji(true, () => this.refTextInput && this.refTextInput.focus());
             } else {
                 if (panelShow) {
                     return this.closePanel(false, () => this.showEmoji());
