@@ -9,7 +9,9 @@ Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid
 ```
 4、改成微信发送风格，去掉发送按钮图标，表情图标始终保持不变
 
-5、去掉默认的emoji图标，改成自定义的表情图标，增加`emojiList`属性，结构如下：
+5、基本重写键盘弹出、emoji、panel弹出关闭相关的逻辑。使其基本符合微信操作习惯（emoji面板使用`TouchableOpacity`来处理emoji点击会带来性能问题，改成了 `Pressable`）
+
+6、去掉默认的emoji图标，改成自定义的表情图标，增加`emojiList`属性，结构如下：
 ```js
 {
   name: "文字名称",
