@@ -12,7 +12,6 @@ export default class ImageMessage extends PureComponent {
     return (
       <View style={[isSelf ? styles.right : styles.left]}>
         <PressableOpacity
-          ref={e => (this[`item_${this.props.rowId}`] = e)}
           collapsable={false}
           disabled={isOpen}
           onPress={() => {

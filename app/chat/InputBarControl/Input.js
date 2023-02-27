@@ -10,7 +10,6 @@ import {
 class Input extends PureComponent {
   render () {
     const { enabled,autoFocus,setTextInputRef, onFocus, placeholder, onContentSizeChange,onSubmit, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
-    console.log("autoFocus=",autoFocus);
     return (
       <Pressable
         onPress={() => {
