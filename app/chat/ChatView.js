@@ -678,7 +678,7 @@ class ChatWindow extends PureComponent {
                                 onEndReachedThreshold={this.props.onEndReachedThreshold}
                                 enableEmptySections
                                 scrollEventThrottle={100}
-                                keyExtractor={(item) => `${item.id}`}
+                                keyExtractor={(item) => item.id}
                                 onEndReached={() => this._loadHistory()}
                                 onLayout={(e) => {
                                     this._scrollToBottom();
@@ -689,7 +689,6 @@ class ChatWindow extends PureComponent {
                                 }}
                                 renderItem={({item, index}) =>
                                     <ChatItem
-                                        key={index}
                                         ImageComponent={ImageComponent}
                                         user={this.props.userProfile}
                                         chatType={chatType}
