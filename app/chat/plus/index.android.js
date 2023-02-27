@@ -7,7 +7,6 @@ export default class PlusPanel extends PureComponent {
 
     render() {
         const {panelContainerHeight, aniPlusHeight, panelHeight, panelShow, panelContainerStyle} = this.props;
-        console.log("panelShow",panelShow);
         return (
             <Animated.View
                 style={{

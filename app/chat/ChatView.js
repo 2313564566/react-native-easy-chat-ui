@@ -98,7 +98,6 @@ class ChatWindow extends PureComponent {
 
     _willShow() {
         this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (e) => {
-            console.log("keyborder will show",e.duration);
             const {panelShow, emojiShow} = this.state;
             this.setState({keyboardHeight: e.endCoordinates.height, xHeight: 0, keyboardShow: true});
             Animated.timing(this.aniKeybordWillShow,{
@@ -118,7 +117,6 @@ class ChatWindow extends PureComponent {
 
     _willHide() {
         this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', (e) => {
-            console.log("keyborder will hide",e.duration);
             const {emojiShow, panelShow} = this.state;
             const {iphoneXBottomPadding} = this.props;
             this.setState({keyboardShow: false});
@@ -143,7 +141,6 @@ class ChatWindow extends PureComponent {
             const {emojiShow, panelShow} = this.state;
             this.setState({keyboardShow: true});
             if(Platform.OS === 'android'){
-                console.log("Anroid keyboardDidShow",e);
                 if(emojiShow || panelShow){
                     if(emojiShow) this.closeEmoji();
                     if(panelShow) this.closePanel();
@@ -288,7 +285,6 @@ class ChatWindow extends PureComponent {
 
     _onFocus = () => {
         if (Platform.OS === 'android') {
-            console.log("_onFocus.....");
             const { emojiShow, panelShow} = this.state;
             if(emojiShow) this.closeEmoji();
             if(panelShow) this.closePanel();
@@ -302,7 +298,6 @@ class ChatWindow extends PureComponent {
 
     closePanel = (realClose = false, callback) => {
         const {keyboardShow} = this.state;
-        console.log('closePanel',keyboardShow);
         if(!keyboardShow || (Platform.OS === 'android' && keyboardShow)) {
             Animated.timing(this.aniKeybordWillShow, {
                 duration: 200,
@@ -322,7 +317,6 @@ class ChatWindow extends PureComponent {
     };
 
     showPanel = (callback) => {
-        console.log('showPanel',this.props.allPanelHeight);
         this.setState({xHeight: 0});
         Animated.timing(this.aniKeybordWillShow,{
             duration: 300,
@@ -387,7 +381,6 @@ class ChatWindow extends PureComponent {
     };
 
     showEmoji = (callback) => {
-        console.log('showEmoji');
         this.setState({xHeight: 0});
         Animated.timing(this.aniKeybordWillShow,{
             duration: 200,
@@ -408,7 +401,6 @@ class ChatWindow extends PureComponent {
 
     closeEmoji = (realClose = false, callback) => {
         const {keyboardShow} = this.state;
-        console.log('closeEmoji',keyboardShow);
         if(!keyboardShow || (Platform.OS === 'android' && keyboardShow)) {
             Animated.timing(this.aniKeybordWillShow, {
                 duration: 200,
