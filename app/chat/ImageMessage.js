@@ -1,19 +1,18 @@
 import React, { PureComponent } from 'react'
 import {
   View,
-  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
   Text
 } from 'react-native'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 export default class ImageMessage extends PureComponent {
   render () {
     const { message, messageErrorIcon, isSelf, isOpen, reSendMessage, chatType, showIsRead, isReadStyle, ImageComponent } = this.props
     return (
       <View style={[isSelf ? styles.right : styles.left]}>
-        <TouchableOpacity
+        <PressableOpacity
           ref={e => (this[`item_${this.props.rowId}`] = e)}
-          activeOpacity={1}
           collapsable={false}
           disabled={isOpen}
           onPress={() => {
@@ -31,7 +30,7 @@ export default class ImageMessage extends PureComponent {
               </Text>
             )}
           </View>
-        </TouchableOpacity>
+        </PressableOpacity>
         <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
           {!isSelf
             ? null
@@ -40,16 +39,15 @@ export default class ImageMessage extends PureComponent {
               : message.sendStatus === 0
                 ? <ActivityIndicator />
                 : message.sendStatus < 0
-                  ? <TouchableOpacity
+                  ? <PressableOpacity
                     disabled={false}
-                    activeOpacity={0.7}
                     onPress={() => {
                       if (message.sendStatus === -2) {
                         reSendMessage(message)
                       }
                     }}>
                     {messageErrorIcon}
-                  </TouchableOpacity>
+                  </PressableOpacity>
                   : null
           }
         </View>

@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import { View, TouchableOpacity, StyleSheet, ActivityIndicator, Text } from 'react-native'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 export default class VideoMessage extends PureComponent {
   render() {
     const { message, messageErrorIcon, isSelf, isOpen, reSendMessage, chatType, showIsRead, isReadStyle, ImageComponent } = this.props
     return (
       <View style={[isSelf ? styles.right : styles.left]}>
-        <TouchableOpacity
+        <PressableOpacity
           ref={e => (this[`item_${this.props.rowId}`] = e)}
-          activeOpacity={1}
           collapsable={false}
           disabled={isOpen}
           onPress={() => this.props.onMessagePress('video', parseInt(this.props.rowId), message.content.uri, message)}
@@ -37,14 +37,13 @@ export default class VideoMessage extends PureComponent {
               </Text>
             )}
           </View>
-        </TouchableOpacity>
+        </PressableOpacity>
         <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
           {!isSelf ? null : message.sendStatus === undefined ? null : message.sendStatus === 0 ? (
             <ActivityIndicator />
           ) : message.sendStatus < 0 ? (
-            <TouchableOpacity
+            <PressableOpacity
               disabled={false}
-              activeOpacity={0.7}
               onPress={() => {
                 if (message.sendStatus === -2) {
                   reSendMessage(message)
@@ -52,7 +51,7 @@ export default class VideoMessage extends PureComponent {
               }}
             >
               {messageErrorIcon}
-            </TouchableOpacity>
+            </PressableOpacity>
           ) : null}
         </View>
       </View>

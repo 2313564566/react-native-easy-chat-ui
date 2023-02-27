@@ -203,7 +203,7 @@ class ChatWindow extends PureComponent {
             // this.time && clearTimeout(this.time)
             // this.time = setTimeout(() => { this.chatList && this.chatList.scrollToEnd({ animated: true }) }, 200)
         } else {
-            this.chatList.scrollToOffset({y: 0, animated: true});
+            this.chatList.scrollToOffset({y: 0, animated: false});
         }
     };
 
@@ -689,8 +689,8 @@ class ChatWindow extends PureComponent {
                                 }}
                                 renderItem={({item, index}) =>
                                     <ChatItem
+                                        key={index}
                                         ImageComponent={ImageComponent}
-                                        ref={(e) => (this.messageItem = e)}
                                         user={this.props.userProfile}
                                         chatType={chatType}
                                         lastReadAt={this.props.lastReadAt}

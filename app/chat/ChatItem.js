@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  StyleSheet, Dimensions
+  StyleSheet, Dimensions,
+    Pressable
 } from 'react-native'
 import TextMessage from './TextMessage'
 import ImageMessage from './ImageMessage'
@@ -280,11 +281,10 @@ export default class ChatItem extends PureComponent {
     const avatar = isSelf ? user.avatar : message.chatInfo.avatar
     const nickName = isSelf ? '' : message.chatInfo.nickName
     const avatarSource = typeof(avatar) === 'number' ? avatar : {uri: avatar}
-    const Element = isOpen ? TouchableWithoutFeedback : View
     const showName = chatType === 'group' && showUserName && type !== 'system'
     return (
       <View>
-        <Element
+        <Pressable
           onPress={() => {
             this.setState({ isSelect: !this.state.isSelect })
             selectMultiple(!this.state.isSelect, parseInt(rowId), message)
@@ -294,13 +294,13 @@ export default class ChatItem extends PureComponent {
             {
               type === 'system'
                 ? null
-                : <TouchableOpacity activeOpacity={1}>
+                : <Pressable activeOpacity={1}>
                   {
                     message.renderTime ? this.props.renderMessageTime(message.time) : null
                   }
-                </TouchableOpacity>
+                </Pressable>
             }
-            <TouchableOpacity
+            <Pressable
               onPress={() => this.props.closeAll()}
               disabled={isOpen}
               activeOpacity={1}
@@ -315,7 +315,7 @@ export default class ChatItem extends PureComponent {
               {
                 type === 'system'
                   ? null
-                  :  <TouchableOpacity
+                  :  <Pressable
                     activeOpacity={0.7}
                     disabled={isOpen}
                     onPress={() => this.props.onPressAvatar(isSelf, message.targetId)}
@@ -325,7 +325,7 @@ export default class ChatItem extends PureComponent {
                     ) : (
                       <ImageComponent source={avatarSource} style={[styles.avatar, avatarStyle]} />
                     )}
-                  </TouchableOpacity>
+                  </Pressable>
               }
               <View style={[
                   { justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' },
@@ -345,13 +345,13 @@ export default class ChatItem extends PureComponent {
                   {this.renderCheck()}
                 </View>
               }
-            </TouchableOpacity>
+            </Pressable>
 
             {
               this.props.renderErrorMessage(message.sendStatus)
             }
           </View>
-        </Element>
+        </Pressable>
       </View>
     )
   }

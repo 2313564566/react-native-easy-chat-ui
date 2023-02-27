@@ -20,6 +20,7 @@ class Container extends PureComponent {
                     Platform.OS === 'ios' ? {paddingBottom: isIphoneX ? xHeight : 0} : {},
                 ]}
                 onLayout={(e) => {
+                    console.log("Container onLayout...",e.nativeEvent.layout,height);
                     setInputHeight(e.nativeEvent.layout)
                 }}
             >

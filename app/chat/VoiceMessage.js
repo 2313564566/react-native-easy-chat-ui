@@ -6,6 +6,7 @@ import {
   Text,
   ActivityIndicator, Dimensions, Platform
 } from 'react-native'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 const { width } = Dimensions.get('window')
 
 export default class VoiceMessage extends PureComponent {
@@ -104,8 +105,7 @@ export default class VoiceMessage extends PureComponent {
             ref={(e) => (this[`item_${this.props.rowId}`] = e)}
           >
             <View>
-              <TouchableOpacity
-                activeOpacity={0.8}
+              <PressableOpacity
                 disabled={isOpen}
                 style={
                   [styles.voiceArea,
@@ -145,12 +145,7 @@ export default class VoiceMessage extends PureComponent {
                   </Text>
                   }
                 </View>
-              </TouchableOpacity>
-              {/*{chatType !== 'group' && isSelf && (*/}
-              {/*  <Text style={{ textAlign: 'right', fontSize: 13 }}>*/}
-              {/*    {this.props.lastReadAt && this.props.lastReadAt - message.time > 0 ? '已读' : '未读'}*/}
-              {/*  </Text>*/}
-              {/*)}*/}
+              </PressableOpacity>
             </View>
           </View>
           <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
@@ -161,16 +156,15 @@ export default class VoiceMessage extends PureComponent {
                 : message.sendStatus === 0
                   ? <ActivityIndicator />
                   : message.sendStatus < 0
-                    ? <TouchableOpacity
+                    ? <PressableOpacity
                       disabled={false}
-                      activeOpacity={0.7}
                       onPress={() => {
                         if (message.sendStatus === -2) {
                           reSendMessage(message)
                         }
                       }}>
                       {messageErrorIcon}
-                    </TouchableOpacity>
+                    </PressableOpacity>
                     : null
             }
           </View>

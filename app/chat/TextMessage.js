@@ -8,6 +8,7 @@ import {
   Dimensions,
   Text
 } from 'react-native'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 import { changeEmojiText } from './utils'
 const { width } = Dimensions.get('window')
 
@@ -30,8 +31,7 @@ export default class TextMessage extends PureComponent {
               { borderColor: isSelf ? rightMessageBackground : leftMessageBackground }
             ]}
         />
-        <TouchableOpacity
-          activeOpacity={1}
+        <PressableOpacity
           disabled={isOpen}
           onLongPress={() => {
             this.props.onMessageLongPress(this[`item_${this.props.rowId}`], 'text', parseInt(this.props.rowId), changeEmojiText(this.props.message.content, 'en').join(''), message)
@@ -49,7 +49,7 @@ export default class TextMessage extends PureComponent {
               {this.props.lastReadAt && this.props.lastReadAt - message.time > 0 ? '已读' : '未读'}
             </Text>
           )}
-        </TouchableOpacity>
+        </PressableOpacity>
         <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
           {!isSelf
             ? null
@@ -58,16 +58,15 @@ export default class TextMessage extends PureComponent {
               : message.sendStatus === 0
                 ? <ActivityIndicator />
                 : message.sendStatus < 0
-                  ? <TouchableOpacity
+                  ? <PressableOpacity
                     disabled={false}
-                    activeOpacity={0.7}
                     onPress={() => {
                       if (message.sendStatus === -2) {
                         reSendMessage(message)
                       }
                     }}>
                     {messageErrorIcon ? messageErrorIcon : <ImageComponent source={require('../source/image/waring.png')} style={{ width: 20, height: 20 }} />}
-                  </TouchableOpacity>
+                  </PressableOpacity>
                   : null
           }
         </View>

@@ -3,7 +3,7 @@ import {View, ScrollView, StyleSheet, Platform, Dimensions ,Animated, TouchableO
 import ViewPagerAndroidContainer from '../components/android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
 import Control from './control';
-// import { EMOJIS_DATA, DEFAULT_EMOJI } from '../../source/emojis'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 const {width, height} = Dimensions.get('window');
 
 export default class EmojiPanel extends PureComponent {
@@ -65,7 +65,7 @@ export default class EmojiPanel extends PureComponent {
                                     }}>
                                         {
                                             item.map((list, i) =>
-                                                <TouchableOpacity
+                                                <PressableOpacity
                                                     activeOpacity={0.7}
                                                     key={i}
                                                     style={{
@@ -84,7 +84,7 @@ export default class EmojiPanel extends PureComponent {
                                                         source={{uri: list.url}}
                                                         resizeMode="contain" style={{width: 40, height: 40}}
                                                     />
-                                                </TouchableOpacity>,
+                                                </PressableOpacity>,
                                             )
                                         }
                                     </View>;

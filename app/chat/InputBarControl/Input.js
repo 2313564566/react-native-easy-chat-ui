@@ -9,7 +9,8 @@ import {
 
 class Input extends PureComponent {
   render () {
-    const { enabled,setTextInputRef, onFocus, placeholder, onContentSizeChange,onSubmit, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
+    const { enabled,autoFocus,setTextInputRef, onFocus, placeholder, onContentSizeChange,onSubmit, textChange, messageContent, inputHeightFix, inputChangeSize, inputStyle } = this.props
+    console.log("autoFocus=",autoFocus);
     return (
       <Pressable
         onPress={() => {
@@ -21,6 +22,7 @@ class Input extends PureComponent {
           multiline={false}
           blurOnSubmit={false}
           editable={enabled}
+          autoFocus={autoFocus}
           placeholder={placeholder}
           placeholderTextColor='#5f5d70'
           underlineColorAndroid='transparent'

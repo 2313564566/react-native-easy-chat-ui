@@ -3,6 +3,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 
 class Voice extends PureComponent {
   _renderContent = () => {
@@ -21,9 +22,9 @@ class Voice extends PureComponent {
     } = this.props
     return (
       <View style={{ height: 35 + inputHeightFix, justifyContent: 'center', alignItems: 'center' }} activeOpacity={0.7}>
-        <TouchableOpacity onPress={onMethodChange} activeOpacity={0.7}>
+        <PressableOpacity onPress={onMethodChange} activeOpacity={0.7}>
           {this._renderContent()}
-        </TouchableOpacity>
+        </PressableOpacity>
       </View>
     )
   }

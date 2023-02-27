@@ -10,6 +10,7 @@ import Container from './Container'
 import Voice from './Voice'
 import VoiceButton from './VoiceButton'
 import Input from './Input'
+import {PressableOpacity} from 'react-native-pressable-opacity';
 const { width } = Dimensions.get('window')
 
 export default class InputBar extends PureComponent {
@@ -143,7 +144,7 @@ export default class InputBar extends PureComponent {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {
             useEmoji
-              ? <TouchableOpacity
+              ? <PressableOpacity
                 activeOpacity={0.7}
                 onPress={() => {
                   Keyboard.dismiss();
@@ -151,10 +152,10 @@ export default class InputBar extends PureComponent {
                 }}
                 >
                 {this.renderEmojieIcon()}
-                </TouchableOpacity>
+                </PressableOpacity>
               : null
           }
-          <TouchableOpacity
+          <PressableOpacity
             style={{ marginLeft: 8 }}
             onPress={
               () => {
@@ -169,7 +170,7 @@ export default class InputBar extends PureComponent {
             activeOpacity={0.7}
           >
             {this.renderIcon()}
-          </TouchableOpacity>
+          </PressableOpacity>
         </View>
       </Container>
     )
