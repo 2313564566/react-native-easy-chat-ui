@@ -203,7 +203,7 @@ class ChatWindow extends PureComponent {
             // this.time && clearTimeout(this.time)
             // this.time = setTimeout(() => { this.chatList && this.chatList.scrollToEnd({ animated: true }) }, 200)
         } else {
-            this.chatList.scrollToOffset({y: 0, animated: false});
+            this.chatList.scrollToOffset({y: 0, animated: true});
         }
     };
 
