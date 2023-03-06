@@ -194,7 +194,7 @@ class ChatWindow extends PureComponent {
         //   messageContent = (this.state.messageContent).join('')
         // }
         this.props.sendMessage(type, messageContent, this.isInverted);
-        this.refTextInput.clear();
+        if(this.refTextInput) this.refTextInput.clear();
         this.setState({messageContent: ''});
         if (!inverted) {
             // this.time && clearTimeout(this.time)
