@@ -46,7 +46,7 @@ useEffect(() => {
 },[]);
 ```
 
-# 关于 aac 转 mp3 
+# 关于 aac 转 mp3 (库比较大，建议使用服务器转格式)
 使用`ffmpeg-kit-react-native` 和子库 `audio-lts`，命令文本：
 ```shell
 -i xxxx.aac -c:v mpeg3 xxxx.mp3 
