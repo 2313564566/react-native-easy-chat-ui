@@ -26,9 +26,7 @@ Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid
 每页24个，创建分页的例子
 ```js
 const [emojiList, setEmojiList] = useState([]);
-const [isInit, setIsInit] = useState(false);
 useEffect(() => {
-    if (!isInit) {
       let emojiGroupList = [];
       if(emojiList.length === 0) {
           let page = -1;
@@ -45,8 +43,6 @@ useEffect(() => {
           }
       }
       setEmojiList(emojiGroupList);
-      setIsInit(true);
-    }
 },[]);
 ```
 
