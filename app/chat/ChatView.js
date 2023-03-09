@@ -22,6 +22,7 @@ import ChatItem from './ChatItem';
 import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
 import DelPanel from './del';
+import PagerView from 'react-native-pager-view';
 
 const {height, width} = Dimensions.get('window');
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
@@ -51,6 +52,7 @@ class ChatWindow extends PureComponent {
         this.isInverted = false;
         this.rootHeight = 0;
         this.androidHasAudioPermission = false;
+        this.scrollToBottom = this._scrollToBottom;
         this.state = {
             messageContent: '',
             cursorIndex: 0,
@@ -196,12 +198,12 @@ class ChatWindow extends PureComponent {
         this.props.sendMessage(type, messageContent, this.isInverted);
         if(this.refTextInput) this.refTextInput.clear();
         this.setState({messageContent: ''});
-        if (!inverted) {
-            // this.time && clearTimeout(this.time)
-            // this.time = setTimeout(() => { this.chatList && this.chatList.scrollToEnd({ animated: true }) }, 200)
-        } else {
-            this.chatList.scrollToOffset({y: 0, animated: false});
-        }
+        // if (!inverted) {
+        //     // this.time && clearTimeout(this.time)
+        //     // this.time = setTimeout(() => { this.chatList && this.chatList.scrollToEnd({ animated: true }) }, 200)
+        // } else {
+        //
+        // }
     };
 
     _changeMethod() {
@@ -268,19 +270,24 @@ class ChatWindow extends PureComponent {
         this.closeAll();
     };
 
-    _scrollToBottom(listHeightAndWidth) {
-        const {inverted} = this.props;
-        if (listHeightAndWidth !== undefined) {
-            const {contentHeight} = listHeightAndWidth;
-            this.isInverted = contentHeight > this.listHeight;
-        }
-        if (!inverted) {
-            setTimeout(() => {
-                this.chatList && this.chatList.scrollToEnd({
-                    animated: this._userHasBeenInputed,
-                });
-            }, this._userHasBeenInputed ? 0 : 130);
-        }
+    _scrollToBottom() {
+        console.log("_scrollToBottom...");
+        this.chatList && this.chatList.scrollToOffset({
+            animated: true,
+            offset: 0
+        });
+        // const {inverted} = this.props;
+        // if (listHeightAndWidth !== undefined) {
+        //     const {contentHeight} = listHeightAndWidth;
+        //     this.isInverted = contentHeight > this.listHeight;
+        // }
+        // // if (!inverted) {
+        // //     setTimeout(() => {
+        // //         this.chatList && this.chatList.scrollToEnd({
+        // //             animated: 200//this._userHasBeenInputed,
+        // //         });
+        // //     }, this._userHasBeenInputed ? 0 : 130);
+        // // }
     }
 
     _onFocus = () => {
@@ -670,14 +677,14 @@ class ChatWindow extends PureComponent {
                                 onEndReachedThreshold={this.props.onEndReachedThreshold}
                                 enableEmptySections
                                 scrollEventThrottle={100}
-                                keyExtractor={(item) => item.id}
+                                keyExtractor={(item,index) => item.id + index}
                                 onEndReached={() => this._loadHistory()}
                                 onLayout={(e) => {
-                                    this._scrollToBottom();
-                                    this.listHeight = e.nativeEvent.layout.height;
+                                    // this._scrollToBottom();
+                                    // this.listHeight = e.nativeEvent.layout.height;
                                 }}
                                 onContentSizeChange={(contentWidth, contentHeight) => {
-                                    this._scrollToBottom({contentWidth, contentHeight});
+                                    // this._scrollToBottom({contentWidth, contentHeight});
                                 }}
                                 renderItem={({item, index}) =>
                                     <ChatItem
