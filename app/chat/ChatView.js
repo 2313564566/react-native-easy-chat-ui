@@ -660,7 +660,8 @@ class ChatWindow extends PureComponent {
                         flex: 1,
                         backgroundColor: 'transparent'
                     }, this.props.chatWindowStyle]}>
-                        <Animated.View style={{flex:1,transform: [{translateY: this.aniKeybordWillShow}]}}>
+                        <Animated.View style={{flex:1,position:'relative',transform: [{translateY: this.aniKeybordWillShow}]}}>
+                            {this.props.renderContent && this.props.renderContent()}
                             <FlashList
                                 {...this.props.flatListProps}
                                 estimatedItemSize={100}
