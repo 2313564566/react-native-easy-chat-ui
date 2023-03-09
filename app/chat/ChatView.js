@@ -814,30 +814,33 @@ class ChatWindow extends PureComponent {
                             />
                             : null
                     }
-                    <PanelContainer
-                        aniPanelHeight={this.aniPanelHeight}
-                        aniEmojiHeight={this.aniEmojiHeight}
-                        aniPlusHeight={this.aniPlusheight}
-                        panelContainerBackgroundColor={this.props.panelContainerBackgroundColor}
-                        visibleHeight={this.visibleHeight}
-                        panelContainerHeight={panelContainerHeight}
-                        usePlus={this.props.usePlus}
-                        useEmoji={this.props.useEmoji}
-                        emojiList={this.props.emojiList}
-                        panelHeight={this.panelHeight}
-                        isIphoneX={this.isIphoneX}
-                        HeaderHeight={this.HeaderHeight}
-                        allPanelHeight={this.props.allPanelHeight}
-                        iphoneXBottomPadding={this.props.iphoneXBottomPadding}
-                        panelSource={this.props.panelSource}
-                        renderPanelRow={this.props.renderPanelRow}
-                        panelContainerStyle={this.props.panelContainerStyle}
-                        ImageComponent={ImageComponent}
-                        emojiHeight={this.emojiHeight}
-                        onEmojiSelected={this._onEmojiSelected}
-                        emojiShow={emojiShow}
-                        panelShow={panelShow}
-                    />
+                    {this.props.showInput ?
+                        <PanelContainer
+                            aniPanelHeight={this.aniPanelHeight}
+                            aniEmojiHeight={this.aniEmojiHeight}
+                            aniPlusHeight={this.aniPlusheight}
+                            panelContainerBackgroundColor={this.props.panelContainerBackgroundColor}
+                            visibleHeight={this.visibleHeight}
+                            panelContainerHeight={panelContainerHeight}
+                            usePlus={this.props.usePlus}
+                            useEmoji={this.props.useEmoji}
+                            emojiList={this.props.emojiList}
+                            panelHeight={this.panelHeight}
+                            isIphoneX={this.isIphoneX}
+                            HeaderHeight={this.HeaderHeight}
+                            allPanelHeight={this.props.allPanelHeight}
+                            iphoneXBottomPadding={this.props.iphoneXBottomPadding}
+                            panelSource={this.props.panelSource}
+                            renderPanelRow={this.props.renderPanelRow}
+                            panelContainerStyle={this.props.panelContainerStyle}
+                            ImageComponent={ImageComponent}
+                            emojiHeight={this.emojiHeight}
+                            onEmojiSelected={this._onEmojiSelected}
+                            emojiShow={emojiShow}
+                            panelShow={panelShow}
+                        />
+                        : null
+                    }
                     {
                         voiceCustom ? null
                             : this.state.showVoice
