@@ -26,9 +26,7 @@ Warning: Failed prop type: ChatWindow: prop type `userProfile.avatar` is invalid
 每页24个，创建分页的例子
 ```js
 const [emojiList, setEmojiList] = useState([]);
-const [isInit, setIsInit] = useState(false);
 useEffect(() => {
-    if (!isInit) {
       let emojiGroupList = [];
       if(emojiList.length === 0) {
           let page = -1;
@@ -45,12 +43,10 @@ useEffect(() => {
           }
       }
       setEmojiList(emojiGroupList);
-      setIsInit(true);
-    }
 },[]);
 ```
 
-# 关于 aac 转 mp3 
+# 关于 aac 转 mp3 (库比较大，建议使用服务器转格式)
 使用`ffmpeg-kit-react-native` 和子库 `audio-lts`，命令文本：
 ```shell
 -i xxxx.aac -c:v mpeg3 xxxx.mp3 
