@@ -34,10 +34,10 @@ export default class TextMessage extends PureComponent {
         <PressableOpacity
           disabled={isOpen}
           onLongPress={() => {
-            this.props.onMessageLongPress(this[`item_${this.props.rowId}`], 'text', parseInt(this.props.rowId), changeEmojiText(this.props.message.content, 'en').join(''), message)
+            this.props.onMessageLongPress(message.type, parseInt(this.props.rowId), message)
           }}
           onPress={() => {
-            this.props.onMessagePress('text', parseInt(this.props.rowId), changeEmojiText(this.props.message.content, 'en').join(''), message)
+            this.props.onMessagePress(message.type, parseInt(this.props.rowId),  message)
           }}
         >
           <View style={[styles.container, { backgroundColor: isSelf ? rightMessageBackground

@@ -52,6 +52,9 @@ export default class ChatItem extends PureComponent {
     // 匹配得到index并放入数组中
     const {leftMessageTextStyle, rightMessageTextStyle, ImageComponent} = this.props
     switch(type){
+      case 'master':
+        views.push(<Text style={isSelf ? rightMessageTextStyle : leftMessageTextStyle}><Text style={{color:textContent.color}}>{textContent.nickname}</Text>{textContent.tips}</Text>)
+        break;
       case 'gift':
         if(textContent.icon2 !== ''){
           views.push(<ImageComponent key={0} style={[styles.subEmojiStyle,{width:30,height:30}]} resizeMethod={'auto'} source={{uri:textContent.icon1}} />);
@@ -85,6 +88,7 @@ export default class ChatItem extends PureComponent {
     switch (type) {
       case 'text':
       case 'gift':
+      case 'master':
       case 'videoCall':
         if (this.props.renderTextMessage === undefined) {
           return (
