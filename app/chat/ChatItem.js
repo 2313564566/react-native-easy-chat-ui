@@ -53,7 +53,7 @@ export default class ChatItem extends PureComponent {
     const {leftMessageTextStyle, rightMessageTextStyle, ImageComponent} = this.props
     switch(type){
       case 'master':
-        views.push(<Text key={'emptyTextView' + (Math.random() * 100) style={isSelf ? rightMessageTextStyle : leftMessageTextStyle}><Text style={{color:textContent.color}}>{textContent.nickname}</Text>{textContent.tips}</Text>)
+        views.push(<Text key={'emptyTextView' + (Math.random() * 100)} style={isSelf ? rightMessageTextStyle : leftMessageTextStyle}><Text style={{color:textContent.color}}>{textContent.nickname}</Text>{textContent.tips}</Text>)
         break;
       case 'gift':
         if(textContent.icon2 !== ''){
