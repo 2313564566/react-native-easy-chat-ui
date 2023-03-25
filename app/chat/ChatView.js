@@ -793,7 +793,7 @@ class ChatWindow extends PureComponent {
                                 inputHeightFix={this.props.inputHeightFix}
                                 audioHasPermission={this.androidHasAudioPermission}
                             />
-                            : null
+                            : <View style={{width:'100%',height:this.props.iphoneXBottomPadding}} />
                     }
 
                     {
