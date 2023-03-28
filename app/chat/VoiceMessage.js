@@ -77,13 +77,12 @@ export default class VoiceMessage extends PureComponent {
         const {message, messageErrorIcon, isSelf, isOpen, reSendMessage, leftMessageBackground, rightMessageBackground, voiceRightLoadingColor, voiceLeftLoadingColor, chatType, isReadStyle, showIsRead} = this.props;
         const {loading} = this.state;
         return (<View>
-            <View style={[isSelf ? styles.right : styles.left]}>
+            <View style={[isSelf ? styles.right : styles.left]} ref={(e) => (this[`item_${this.props.rowId}`] = e)}>
                 <PressableOpacity
                     disabled={isOpen}
                     activeOpacity={0.8}
                     style={{flexDirection: 'row',alignItems:'center'}}
                     collapsable={false}
-                    ref={(e) => (this[`item_${this.props.rowId}`] = e)}
                     onPress={() => {
                         this.props.savePressIndex(this.props.rowId);
                         this.props.onMessagePress('voice', parseInt(this.props.rowId), message.content.uri, message);
