@@ -452,7 +452,12 @@ class ChatWindow extends PureComponent {
             }
         } else {
             if (emojiShow) {
-                return this.closeEmoji(true, () => this.refTextInput && this.refTextInput.focus());
+                return this.closeEmoji(true, () => {
+                    if (this.refTextInput) {
+                        this.refTextInput.blur();
+                        setTimeout(() => this.refTextInput.focus(),100);
+                    }
+                });
             } else {
                 if (panelShow) {
                     return this.closePanel(false, () => this.showEmoji());
