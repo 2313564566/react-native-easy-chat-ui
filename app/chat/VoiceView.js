@@ -59,17 +59,20 @@ export default class VoiceView extends PureComponent {
   }
 
   show = () => {
+    // this.setState({
+    //   isShow: true
+    // })
+    // Animated.timing(
+    //   this.state.opacityValue,
+    //   {
+    //     toValue: this.props.opacity,
+    //     useNativeDriver: true,
+    //     duration: this.props.fadeInDuration
+    //   }
+    // ).start()
     this.setState({
-      isShow: true
-    })
-    Animated.timing(
-      this.state.opacityValue,
-      {
-        toValue: this.props.opacity,
-        useNativeDriver: true,
-        duration: this.props.fadeInDuration
-      }
-    ).start()
+        isShow: true
+      })
     this._record()
   }
 
@@ -81,8 +84,13 @@ export default class VoiceView extends PureComponent {
        this.setState({ error: true })
        delayTime = 1000
      }
-     this.timer && clearTimeout(this.timer)
-     this.timer = setTimeout(() => this.delayClose(), delayTime)
+     // this.timer && clearTimeout(this.timer)
+     // this.timer = setTimeout(() => this.delayClose(), delayTime)
+     this.setState({
+       isShow: false,
+       error: false
+     })
+     this.props.setAudioHandle(true);
      const content = {
        uri: this.props.audioPath,
        length: audioCurrentTime
@@ -214,7 +222,7 @@ export default class VoiceView extends PureComponent {
      const pos = (height - 64 - 44 - 200) / 2
      const view = this.state.isShow ? (
        <View style={[styles.container, { top: pos }]} pointerEvents='none'>
-         <Animated.View style={[styles.content, { opacity: this.state.opacityValue }, this.props.style]}>
+         <Animated.View style={[styles.content, { opacity: 1 }, this.props.style]}>
            {this._renderContent()}
          </Animated.View>
        </View>

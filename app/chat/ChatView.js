@@ -585,6 +585,9 @@ class ChatWindow extends PureComponent {
     };
 
     changeVoiceStatus = (status) => {
+        if(this.props.onVoiceCancel) {
+            this.props.onVoiceCancel(status);
+        }
         this.setState({isVoiceContinue: status});
     };
 

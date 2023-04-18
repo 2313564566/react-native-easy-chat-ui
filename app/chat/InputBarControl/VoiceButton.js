@@ -1,89 +1,75 @@
-import React, { PureComponent } from 'react'
+import React, {PureComponent} from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  Platform,
-  Dimensions
-} from 'react-native'
-import { PanGestureHandler, State, TapGestureHandler } from 'react-native-gesture-handler'
-const { height } = Dimensions.get('window')
-class VoiceButton extends PureComponent {
-  constructor (props) {
-    super(props)
-    this.state = {
-      state: State.UNDETERMINED
-    }
-  }
+    StyleSheet,
+    View,
+    Text,
+    Platform,
+    Dimensions,
+} from 'react-native';
+import {PanGestureHandler, State, TapGestureHandler, GestureDetector, Gesture} from 'react-native-gesture-handler';
 
-  _onPanState = (e) => {
-    const { showVoice, voiceEnd } = this.props
-    if (e.state === State.END || e.state === State.FAILED) {
-      // 结束
-      if (showVoice) {
-        voiceEnd()
-      }
-    }
-  }
+const {height} = Dimensions.get('window');
 
-  _onPan = (e) => {
-    console.log("audioHasPermission",audioHasPermission);
-    const { inputHeight, changeVoiceStatus, audioHasPermission } = this.props
-    const compare = height - inputHeight
-    if (!audioHasPermission && Platform.OS === 'android') return null
-    if (e.absoluteY < compare) {
-      changeVoiceStatus(false)
-    } else {
-      changeVoiceStatus(true)
-    }
-  }
 
-  _onTab = (e) => {
-    console.log("onTab",e);
-    const { showVoice, voiceStart, voiceEnd } = this.props
-    if (e.state === State.BEGAN) {
-      if (showVoice) {
-        voiceStart()
-      }
-    }
-    if (e.state === State.END) {
-      // 结束
-      if (showVoice) {
-        voiceEnd()
-      }
-    }
-  }
-
-  render () {
-    const { isVoiceEnd, inputHeightFix, pressOutText, pressInText } = this.props
+const VoiceButton = ({voiceStart,voiceEnd,isVoiceEnd, changeVoiceStatus, inputHeightFix, pressOutText, pressInText}) => {
+    const gesture = Gesture.LongPress()
+        .shouldCancelWhenOutside(false)
+        .maxDistance(height)
+        .minDuration(100)
+        .runOnJS(true)
+        .onBegin(() => {
+            console.log('gesture begin');
+        })
+        .onStart(() => {
+            console.log('gesture start');
+            voiceStart();
+        })
+        .onTouchesUp(() => {
+            console.log("gesture onTouchesUp");
+            voiceEnd();
+        })
+        .onTouchesCancelled(() => {
+            console.log('gesture onTouchesCancelled');
+        })
+        .onTouchesMove((event, stateManager) => {
+            if(event.changedTouches[0].y < 0){
+                //手势上移了
+                changeVoiceStatus(false);
+            }else{
+                changeVoiceStatus(true);
+            }
+        })
+        .onEnd((e,success) => {
+            console.log('gesture end',e,success);
+        })
+        .onFinalize((e,success) => {
+            console.log('gesture finalize',e,success);
+        });
     return (
-      <PanGestureHandler onGestureEvent={(e) => this._onPan(e.nativeEvent)} onHandlerStateChange={(e) => this._onPanState(e.nativeEvent)}>
-        <TapGestureHandler
-          onHandlerStateChange={(e) => this._onTab(e.nativeEvent)}
-        >
-          <View style={{ borderRadius: 18, backgroundColor: isVoiceEnd ? '#bbb' : '#f5f5f5' }}>
-            <View style={[styles.container, { height: 35 + inputHeightFix }]}>
-              <Text style={styles.text}>{isVoiceEnd ? `${pressOutText}` : `${pressInText}`}</Text>
+        <GestureDetector gesture={gesture}>
+            <View style={{borderRadius: 18, backgroundColor: isVoiceEnd ? '#bbb' : '#f5f5f5'}}>
+                <View style={[styles.container, {height: 35 + inputHeightFix}]}>
+                    <Text style={styles.text}>{isVoiceEnd ? `${pressOutText}` : `${pressInText}`}</Text>
+                </View>
             </View>
-          </View>
-        </TapGestureHandler>
-      </PanGestureHandler>
-    )
-  }
-}
+        </GestureDetector>
+    );
 
-export default VoiceButton
+
+};
+
+export default VoiceButton;
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#555'
-  }
-})
+    container: {
+        borderRadius: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#555',
+    },
+});
