@@ -96,18 +96,14 @@ export default class InputBar extends PureComponent {
         inputContainerStyle={inputContainerStyle}
         aniKeybordWillShow={aniKeybordWillShow}
       >
-        {
-          useVoice
-            ? <Voice
-              showVoice={showVoice}
-              ImageComponent={ImageComponent}
-              keyboardIcon={keyboardIcon}
-              voiceIcon={voiceIcon}
-              inputHeightFix={inputHeightFix}
-              onMethodChange={onMethodChange}
-            />
-            : null
-        }
+        <Voice
+            showVoice={showVoice}
+            ImageComponent={ImageComponent}
+            keyboardIcon={keyboardIcon}
+            voiceIcon={voiceIcon}
+            inputHeightFix={inputHeightFix}
+            onMethodChange={onMethodChange}
+        />
         <View style={styles.container}>
           {showVoice
             ? <VoiceButton
@@ -142,31 +138,25 @@ export default class InputBar extends PureComponent {
             />}
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          {
-            useEmoji
-              ? <PressableOpacity
-                activeOpacity={0.7}
-                onPress={() => {
-                  Keyboard.dismiss();
-                  this.props.showEmoji()
-                }}
-                >
-                {this.renderEmojieIcon()}
-                </PressableOpacity>
-              : null
-          }
+          <PressableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                Keyboard.dismiss();
+                this.props.showEmoji()
+              }}
+          >
+            {this.renderEmojieIcon()}
+          </PressableOpacity>
           <PressableOpacity
             style={{ marginLeft: 8 }}
-            onPress={
-              () => {
+            onPress={() => {
                 if (usePlus) {
                   Keyboard.dismiss();
                   isShowPanel(!isPanelShow)
                 } else {
                   return null
                 }
-            }
-            }
+            }}
             activeOpacity={0.7}
           >
             {this.renderIcon()}
@@ -189,7 +179,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderRadius: 18,
     borderColor: '#ccc',
-    flex: 1,
+    width: width - 130,
     borderWidth: StyleSheet.hairlineWidth,
     paddingVertical: 0.8
   },

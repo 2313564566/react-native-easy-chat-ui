@@ -35,7 +35,7 @@ export default class PanelContainer extends PureComponent {
               zIndex: 1,
               top: height,
               width,
-              backgroundColor: 'white',
+              backgroundColor: '#f5f5f5',
               transform: [{translateY: aniPanelHeight}],
             }}
         >

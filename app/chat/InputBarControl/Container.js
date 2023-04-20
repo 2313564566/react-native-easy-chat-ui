@@ -36,9 +36,10 @@ export default Container;
 
 const styles = StyleSheet.create({
     commentBar: {
+        flexDirection:'row',
         width: width,
         backgroundColor: '#f5f5f5',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         borderColor: '#ccc',
         borderTopWidth: StyleSheet.hairlineWidth,
     },
