@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {View, ScrollView, StyleSheet, Platform, Dimensions ,Animated, TouchableOpacity,Pressable} from 'react-native';
-import ViewPagerAndroidContainer from '../components/android-container';
+import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
 import Control from './control';
 import {PressableOpacity} from 'react-native-pressable-opacity';

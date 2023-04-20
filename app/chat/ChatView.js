@@ -17,7 +17,6 @@ import {ViewPropTypes as RNViewPropTypes} from 'deprecated-react-native-prop-typ
 import PropTypes from 'prop-types';
 import {getCurrentTime, changeEmojiText} from './utils';
 import Voice from './VoiceView';
-import PopView from './components/pop-view';
 import ChatItem from './ChatItem';
 import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
