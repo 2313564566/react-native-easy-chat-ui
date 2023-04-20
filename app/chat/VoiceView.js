@@ -182,7 +182,7 @@ export default class VoiceView extends PureComponent {
      const { errorIcon, voiceStatus, cancelIcon, audioHandle, errorText, voiceCancelText, voiceNoteText, renderVoiceView, voiceSpeakIcon, voiceVolume, ImageComponent } = this.props
      if (renderVoiceView === undefined) {
        return (
-         error ? (
+         errorText !== '' ? (
            <View style={{ justifyContent: 'center', alignItems: 'center', width: 150, height: 150 }}>
              {errorIcon || <ImageComponent source={require('../source/image/voiceError.png')} style={{ width: 60, height: 60 }} />}
              <Text style={{ color: '#fff', marginTop: 10, textAlign: 'center' }}>{errorText}</Text>
