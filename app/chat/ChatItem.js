@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 import TextMessage from './TextMessage'
 import ImageMessage from './ImageMessage'
-import VideoMessage from './VideoMessage'
 import VoiceMessage from './VoiceMessage'
 const { width } = Dimensions.get('window')
 
@@ -172,78 +171,6 @@ export default class ChatItem extends PureComponent {
         } else {
           return this.props.renderVoiceMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
         }
-      case 'video' :
-        if (this.props.renderVideoMessage === undefined) {
-          return (
-            <VideoMessage
-              ImageComponent={ImageComponent}
-              rightMessageBackground={this.props.rightMessageBackground}
-              leftMessageBackground={this.props.leftMessageBackground}
-              reSendMessage={reSendMessage}
-              isOpen={isOpen}
-              isSelf={isSelf}
-              messageErrorIcon={messageErrorIcon}
-              message={message}
-              onMessageLongPress={this.props.onMessageLongPress}
-              onMessagePress={this.props.onMessagePress}
-              rowId={this.props.rowId}
-              lastReadAt={this.props.lastReadAt}
-              chatType={this.props.chatType}
-              showIsRead={this.props.showIsRead}
-              isReadStyle={this.props.isReadStyle}
-            />
-          )
-        } else {
-          return this.props.renderVideoMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      case 'location':
-        if (this.props.renderLocationMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderLocationMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      case 'share':
-        if (this.props.renderShareMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderShareMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      // case 'videoCall':
-      //   if (this.props.renderVideoCallMessage === undefined) {
-      //     return null
-      //   } else {
-      //     return this.props.renderVideoCallMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-      //   }
-      case 'voiceCall':
-        if (this.props.renderVoiceCallMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderVoiceCallMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      case 'redEnvelope':
-        if (this.props.renderRedEnvelopeMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderRedEnvelopeMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      case 'file':
-        if (this.props.renderFileMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderFileMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      case 'pat':
-        if (this.props.renderPatMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderPatMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
-      case 'custom':
-        if (this.props.renderCustomMessage === undefined) {
-          return null
-        } else {
-          return this.props.renderCustomMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
-        }
       case 'system':
         if (this.props.renderSystemMessage === undefined) {
           return (
@@ -256,25 +183,6 @@ export default class ChatItem extends PureComponent {
         } else {
           return this.props.renderSystemMessage({ isOpen, isSelf, message, index: parseInt(rowId) })
         }
-    }
-  }
-
-  renderCheck = () => {
-    const {ImageComponent} = this.props
-    if (this.props.renderMessageCheck === undefined) {
-      if (this.state.isSelect) {
-        return (
-          <View style={styles.check}>
-            {this.props.messageSelectIcon ? this.props.messageSelectIcon :
-              <ImageComponent source={require('../source/image/check.png')} style={{ width: 14, height: 14 }} />
-            }
-          </View>
-        )
-      } else {
-        return <View style={styles.unCheck} />
-      }
-    } else {
-      return this.props.renderMessageCheck(this.state.isSelect)
     }
   }
 
@@ -311,12 +219,6 @@ export default class ChatItem extends PureComponent {
               style={[styles.chat, isSelf ? styles.right : styles.left, itemContainerStyle]} ref={(e) => (this.content = e)}
             >
               {
-                !isSelf && isOpen &&  type !== 'system' &&
-                <View>
-                  {this.renderCheck()}
-                </View>
-              }
-              {
                 type === 'system'
                   ? null
                   :  <Pressable
@@ -341,14 +243,6 @@ export default class ChatItem extends PureComponent {
                 }
                 {this._renderContent(isSelf)}
               </View>
-              {
-                isSelf && isOpen && type !== 'system' &&
-                <View
-                  style={{ flex: 1 }}
-                >
-                  {this.renderCheck()}
-                </View>
-              }
             </Pressable>
 
             {

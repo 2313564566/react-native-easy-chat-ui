@@ -20,7 +20,6 @@ import Voice from './VoiceView';
 import ChatItem from './ChatItem';
 import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
-import DelPanel from './del';
 import PagerView from 'react-native-pager-view';
 
 const {height, width} = Dimensions.get('window');
@@ -803,24 +802,6 @@ class ChatWindow extends PureComponent {
                             : <View style={{width:'100%',height:this.props.iphoneXBottomPadding}} />
                     }
 
-                    {
-                        this.props.usePopView
-                            ? <DelPanel
-                                ImageComponent={ImageComponent}
-                                messageSelected={this.state.messageSelected}
-                                isIphoneX={this.isIphoneX}
-                                delPanelButtonStyle={this.props.delPanelButtonStyle}
-                                delPanelStyle={this.props.delPanelStyle}
-                                renderDelPanel={this.props.renderDelPanel}
-                                HeaderHeight={this.HeaderHeight}
-                                iphoneXBottomPadding={this.props.iphoneXBottomPadding}
-                                messageDelIcon={this.props.messageDelIcon}
-                                delMessage={this.props.delMessage}
-                                isInverted={this.isInverted}
-                                leftHeight={this.leftHeight}
-                            />
-                            : null
-                    }
                     {this.props.showInput ?
                         <PanelContainer
                             aniPanelHeight={this.aniPanelHeight}
@@ -1046,7 +1027,7 @@ ChatWindow.defaultProps = {
     usePopView: true,
     userProfile: {
         id: '88886666',
-        avatar: require('../source/image/defaultAvatar.png'),
+        avatar: '',
         nickName: 'Test',
     },
     panelSource: [],
@@ -1095,32 +1076,6 @@ ChatWindow.defaultProps = {
     pressInText: '按住 说话',
     pressOutText: '送开 发送',
     changeHeaderLeft: () => {
-        /* example */
-        // this.props.navigation.setParams({
-        //   headerLeft: (
-        //     <TouchableOpacity
-        //       activeOpacity={0.7}
-        //       style={{ top: 1, width: 54, paddingLeft: 12, justifyContent: 'center', alignItems: 'flex-start' }}
-        //       onPress={() => {
-        //         this.props.navigation.setParams({
-        //           headerLeft: (
-        //             <TouchableOpacity
-        //               activeOpacity={0.7}
-        //               style={{ top: 1, width: 54, paddingLeft: 8, justifyContent: 'center', alignItems: 'flex-start' }}
-        //               onPress={() => this.props.navigation.goBack()}
-        //             >
-        //               <Material name={'keyboard-arrow-left'} size={30} color={'#000'} />
-        //             </TouchableOpacity>
-        //           )
-        //         })
-        //         that._closeMultipleSelect()
-        //       }
-        //       }
-        //     >
-        //       <Text style={{fontSize: 15, fontWeight: '600'}}>取消</Text>
-        //     </TouchableOpacity>
-        //   )
-        // })
     },
     pressAvatar: (isSelf, targetId) => {
         console.log(isSelf, targetId);

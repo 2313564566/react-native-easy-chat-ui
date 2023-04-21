@@ -15,17 +15,7 @@ export default class TextMessage extends PureComponent {
                 collapsable={false}
                 ref={(e) => (this[`item_${this.props.rowId}`] = e)}
             >
-                <View
-                    // activeOpacity={0.8}
-                    // disabled={isOpen}
-                    // onLongPress={() => {
-                    //     this.props.onMessageLongPress(message.type, parseInt(this.props.rowId), message);
-                    // }}
-                    // onPress={() => {
-                    //     this.props.onMessagePress(message.type, parseInt(this.props.rowId), message);
-                    // }}
-                    style={{flexDirection:'row'}}
-                >
+                <View style={{flexDirection:'row'}}>
                     {!isSelf && <View style={[styles.triangle, styles.left_triangle, {borderColor: leftMessageBackground}]} />}
                     <View style={[styles.container, {
                         backgroundColor: isSelf ? rightMessageBackground : leftMessageBackground,
@@ -47,8 +37,6 @@ export default class TextMessage extends PureComponent {
                                     reSendMessage(message);
                                 }
                             }}>
-                            {messageErrorIcon ? messageErrorIcon :
-                                <ImageComponent source={require('../source/image/waring.png')} style={{width: 20, height: 20}}/>}
                         </PressableOpacity> : null}
                 </View>
             </View>);
