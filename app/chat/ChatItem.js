@@ -175,9 +175,7 @@ export default class ChatItem extends PureComponent {
         if (this.props.renderSystemMessage === undefined) {
           return (
             <View style={styles.system_container}>
-              <View style={styles.system_button}>
-                <Text style={styles.system_text}>{message.content}</Text>
-              </View>
+              {message.content}
             </View>
           )
         } else {
@@ -332,13 +330,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   system_button: {
-    backgroundColor: 'rgba(240, 240, 240, 0.7)',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 4
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    padding: 8,
+    borderRadius: 5
   },
   system_text: {
-    fontSize: 12
+    fontSize: 12,
+    color:'white'
   },
   userName: {
     fontSize: 12,
