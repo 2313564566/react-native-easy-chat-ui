@@ -31,6 +31,7 @@ class Input extends PureComponent {
           returnKeyType='send'
           enablesReturnKeyAutomatically={true}
           value={messageContent}
+          contextMenuHidden={true}
           style={[styles.commentBar__input, { padding: Platform.OS === 'ios'?8:0,height: 35 }, inputStyle]}
         />
       </Pressable>
