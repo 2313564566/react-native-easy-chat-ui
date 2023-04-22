@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {
-    View, TouchableOpacity, ActivityIndicator, Platform, StyleSheet, Dimensions, Text,
+    View, TouchableOpacity, ActivityIndicator, Platform, StyleSheet, Dimensions, Text, Pressable,
 } from 'react-native';
 import {PressableOpacity} from 'react-native-pressable-opacity';
 import {changeEmojiText} from './utils';
@@ -9,8 +9,10 @@ const {width} = Dimensions.get('window');
 
 export default class TextMessage extends PureComponent {
     render() {
-        const {isSelf, message, messageErrorIcon, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent} = this.props;
-        return (<View
+        const {isSelf, message, messageErrorIcon, onMessagePress, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent} = this.props;
+        return (<Pressable onPress={() => {
+            if (message.type === 'master') this.props.onMessagePress('master', parseInt(this.props.rowId), message.content, message);
+        }}
                 style={[isSelf ? styles.right : styles.left]}
                 collapsable={false}
                 ref={(e) => (this[`item_${this.props.rowId}`] = e)}
@@ -39,7 +41,7 @@ export default class TextMessage extends PureComponent {
                             }}>
                         </PressableOpacity> : null}
                 </View>
-            </View>);
+            </Pressable>);
     }
 }
 const styles = StyleSheet.create({
