@@ -21,6 +21,7 @@ import ChatItem from './ChatItem';
 import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
 import PagerView from 'react-native-pager-view';
+import {StatusBar} from 'react-native';
 
 const {height, width} = Dimensions.get('window');
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
@@ -647,7 +648,7 @@ class ChatWindow extends PureComponent {
         const currentList = messageList.slice().sort((a, b) => inverted
             ? (b.time - a.time)
             : (a.time - b.time));
-        const panelContainerHeight = allPanelHeight + (this.isIphoneX ? this.props.iphoneXBottomPadding : 23);
+        const panelContainerHeight = allPanelHeight + (this.isIphoneX ? this.props.iphoneXBottomPadding : StatusBar.currentHeight);
         return (
             <View style={{flex: 1, position: 'relative'}} onLayout={(e) => this.rootHeight = e.nativeEvent.layout.height}>
                 {this.renderBg(chatBackgroundImage)}

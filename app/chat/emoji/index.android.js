@@ -1,5 +1,15 @@
 import React, {PureComponent} from 'react';
-import {View, ScrollView, StyleSheet, Platform, Dimensions ,Animated, TouchableOpacity,Pressable} from 'react-native';
+import {
+    View,
+    ScrollView,
+    StyleSheet,
+    Platform,
+    Dimensions,
+    Animated,
+    TouchableOpacity,
+    Pressable,
+    StatusBar,
+} from 'react-native';
 import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
 import Control from './control';
@@ -32,7 +42,7 @@ export default class EmojiPanel extends PureComponent {
         <Animated.View style={[styles.container, {
           position: 'absolute',
           height: panelContainerHeight,
-          backgroundColor: '#f5f5f5',
+          backgroundColor: 'green',
           transform: [{translateY: aniEmojiHeight}],
           opacity: 1,
           display: emojiShow ? 'flex':'none'
@@ -47,7 +57,7 @@ export default class EmojiPanel extends PureComponent {
                 onScroll={(e) => this.switchComponent(e)}
                 onPageScroll={(e) => this.switchComponent(e)}
                 horizontal
-                style={{flex: 1}}
+                style={{flex: 1,marginTop: StatusBar.currentHeight + 10}}
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
                 bounces={false}
@@ -62,7 +72,6 @@ export default class EmojiPanel extends PureComponent {
                         flexDirection: 'row',
                         flexWrap: 'wrap',
                         paddingHorizontal: 15,
-                        marginTop: 28,
                       }}>
                         {
                           item.map((list, i) =>
@@ -91,8 +100,8 @@ export default class EmojiPanel extends PureComponent {
                 )
               }
             </ContainerComponent>
-            <View style={{height: 40}}>
-              <Control style={{bottom: 20}} index={this.state.pageIndex} total={this.total}/>
+            <View style={{height:40}}>
+              <Control style={{bottom: 10}} index={this.state.pageIndex} total={this.total}/>
             </View>
           </ViewPagerAndroidContainer>
         </Animated.View>
