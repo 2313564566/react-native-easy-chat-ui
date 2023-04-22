@@ -42,7 +42,7 @@ export default class EmojiPanel extends PureComponent {
         <Animated.View style={[styles.container, {
           position: 'absolute',
           height: panelContainerHeight,
-          backgroundColor: 'green',
+          backgroundColor: '#f5f5f5',
           transform: [{translateY: aniEmojiHeight}],
           opacity: 1,
           display: emojiShow ? 'flex':'none'
