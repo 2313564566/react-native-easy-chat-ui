@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import {View, StyleSheet, Dimensions, Animated} from 'react-native';
-
+import {StatusBar} from 'react-native';
 const {width, height} = Dimensions.get('window');
+
 
 export default class PlusPanel extends PureComponent {
 
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 0,
         borderColor: '#ccc',
         paddingHorizontal: 15,
-        paddingTop: 10,
+        paddingTop: StatusBar.currentHeight,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
