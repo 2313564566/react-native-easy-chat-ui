@@ -10,7 +10,7 @@ const {width} = Dimensions.get('window');
 export default class TextMessage extends PureComponent {
     render() {
         const {isSelf, message, messageErrorIcon, onMessagePress, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent} = this.props;
-        return (<Pressable onPress={() => {
+        return (<PressableOpacity onPress={() => {
             if (message.type === 'master') this.props.onMessagePress('master', parseInt(this.props.rowId), message.content, message);
         }}
                 style={[isSelf ? styles.right : styles.left]}
@@ -41,7 +41,7 @@ export default class TextMessage extends PureComponent {
                             }}>
                         </PressableOpacity> : null}
                 </View>
-            </Pressable>);
+            </PressableOpacity>);
     }
 }
 const styles = StyleSheet.create({
