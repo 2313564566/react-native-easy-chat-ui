@@ -240,7 +240,7 @@ export default class ChatItem extends PureComponent {
                     : null
                 }
                 {this._renderContent(isSelf)}
-                {message.footer !== '' && <View style={{justifyContent:'flex-end'}}><Text style={{color:'white',fontSize:12}}>{message.footer}</Text></View>}
+                 {message.footer}
               </View>
             </Pressable>
 
