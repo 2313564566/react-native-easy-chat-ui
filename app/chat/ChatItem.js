@@ -232,7 +232,7 @@ export default class ChatItem extends PureComponent {
                   </Pressable>
               }
               <View style={[
-                  { justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' },
+                  { flexDirection:'row',justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' },
                   type === 'system' && { flex: 1 },
                 ]}>
                 {
@@ -240,6 +240,7 @@ export default class ChatItem extends PureComponent {
                     : null
                 }
                 {this._renderContent(isSelf)}
+                {message.footer !== '' && <View style={{justifyContent:'flex-end'}}><Text style={{color:'white',fontSize:12}}>{message.footer}</Text></View>}
               </View>
             </Pressable>
 
