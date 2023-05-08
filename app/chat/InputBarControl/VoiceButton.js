@@ -23,6 +23,7 @@ const VoiceButton = ({voiceStart,voiceEnd,isVoiceEnd, changeVoiceStatus, inputHe
         .onStart(() => {
             console.log('gesture start');
             voiceStart();
+            console.log("gesture start ....");
         })
         .onTouchesUp(() => {
             console.log("gesture onTouchesUp");

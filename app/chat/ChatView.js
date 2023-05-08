@@ -249,6 +249,7 @@ class ChatWindow extends PureComponent {
     _onVoiceStart = () => {
         if (Platform.OS === 'android') {
             if (this.androidHasAudioPermission) {
+                console.log("_onVoiceStart",this.androidHasAudioPermission);
                 this.setState({voiceEnd: true});
                 this.voice.show();
             }

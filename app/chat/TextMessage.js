@@ -10,12 +10,11 @@ const {width} = Dimensions.get('window');
 export default class TextMessage extends PureComponent {
     render() {
         const {isSelf, message, messageErrorIcon, onMessagePress, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent} = this.props;
-        return (<PressableOpacity onPress={() => {
+        return (<PressableOpacity activeOpacity={0.8} onPress={() => {
             if (message.type === 'master') this.props.onMessagePress('master', parseInt(this.props.rowId), message.content, message);
         }}
                 style={[isSelf ? styles.right : styles.left]}
                 collapsable={false}
-                ref={(e) => (this[`item_${this.props.rowId}`] = e)}
             >
                 <View style={{flexDirection:'row'}}>
                     {!isSelf && <View style={[styles.triangle, styles.left_triangle, {borderColor: leftMessageBackground}]} />}
