@@ -666,91 +666,93 @@ class ChatWindow extends PureComponent {
                 >
                     <Pressable onPress={() => this.closeAll()} style={[{
                         flex: 1,
-                        backgroundColor: 'transparent'
+                        backgroundColor: 'transparent',
                     }, this.props.chatWindowStyle]}>
-                        <Animated.View style={{flex:1,position:'relative',transform: [{ rotate: '180deg' }]}}>
-                            {this.props.renderContent && this.props.renderContent()}
-                            <FlashList
-                                {...this.props.flatListProps}
-                                estimatedItemSize={100}
-                                ref={e => (this.chatList = e)}
-                                inverted={false}
-                                data={currentList}
-                                ListFooterComponent={this.props.renderLoadEarlier}
-                                extraData={this.props.extraData}
-                                automaticallyAdjustContentInsets={false}
-                                onScroll={(e) => {
-                                    this.props.onScroll(e);
-                                }}
-                                showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
-                                onEndReachedThreshold={this.props.onEndReachedThreshold}
-                                enableEmptySections
-                                scrollEventThrottle={100}
-                                keyExtractor={(item,index) => item.id + index}
-                                onEndReached={() => this._loadHistory()}
-                                onLayout={(e) => {
-                                    // this._scrollToBottom();
-                                    // this.listHeight = e.nativeEvent.layout.height;
-                                }}
-                                onContentSizeChange={(contentWidth, contentHeight) => {
-                                    // this._scrollToBottom({contentWidth, contentHeight});
-                                }}
-                                renderItem={({item, index}) =>
-                                    <ChatItem
-                                        ImageComponent={ImageComponent}
-                                        user={this.props.userProfile}
-                                        chatType={chatType}
-                                        lastReadAt={this.props.lastReadAt}
-                                        showIsRead={this.props.showIsRead}
-                                        isReadStyle={this.props.isReadStyle}
-                                        reSendMessage={this.props.reSendMessage}
-                                        renderMessageCheck={this.props.renderMessageCheck}
-                                        message={item}
-                                        currentIndex={this.state.currentIndex}
-                                        isOpen={this.state.selectMultiple}
-                                        selectMultiple={this.selectMultiple}
-                                        rowId={index}
-                                        popShow={this.show}
-                                        messageSelectIcon={this.props.messageSelectIcon}
-                                        renderMessageTime={this.props.renderMessageTime}
-                                        onMessageLongPress={this.show}
-                                        onMessagePress={this.props.onMessagePress}
-                                        onPressAvatar={this._PressAvatar}
-                                        messageErrorIcon={this.props.messageErrorIcon}
-                                        voiceLeftIcon={this.props.voiceLeftIcon}
-                                        voiceRightIcon={this.props.voiceRightIcon}
-                                        closeAll={this.closeAll}
-                                        renderAvatar={this.props.renderAvatar}
-                                        avatarStyle={this.props.avatarStyle}
-                                        showUserName={this.props.showUserName}
-                                        userNameStyle={this.props.userNameStyle}
-                                        itemContainerStyle={this.props.itemContainerStyle}
-                                        renderErrorMessage={this.props.renderErrorMessage}
-                                        renderTextMessage={this.props.renderTextMessage}
-                                        renderImageMessage={this.props.renderImageMessage}
-                                        renderVoiceMessage={this.props.renderVoiceMessage}
-                                        renderVideoMessage={this.props.renderVideoMessage}
-                                        renderLocationMessage={this.props.renderLocationMessage}
-                                        renderShareMessage={this.props.renderShareMessage}
-                                        renderVideoCallMessage={this.props.renderVideoCallMessage}
-                                        renderVoiceCallMessage={this.props.renderVoiceCallMessage}
-                                        renderRedEnvelopeMessage={this.props.renderRedEnvelopeMessage}
-                                        renderFileMessage={this.props.renderFileMessage}
-                                        renderSystemMessage={this.props.renderSystemMessage}
-                                        renderPatMessage={this.props.renderPatMessage}
-                                        renderCustomMessage={this.props.renderCustomMessage}
-                                        rightMessageBackground={this.props.rightMessageBackground}
-                                        leftMessageBackground={this.props.leftMessageBackground}
-                                        voiceLoading={this.props.voiceLoading}
-                                        voicePlaying={this.props.voicePlaying}
-                                        savePressIndex={this.savePressIndex}
-                                        pressIndex={this.state.pressIndex}
-                                        voiceLeftLoadingColor={this.props.voiceLeftLoadingColor}
-                                        voiceRightLoadingColor={this.props.voiceRightLoadingColor}
-                                        leftMessageTextStyle={this.props.leftMessageTextStyle}
-                                        rightMessageTextStyle={this.props.rightMessageTextStyle}
-                                    />}
-                            />
+                        <Animated.View style={{flex:1,transform: [{translateY: this.aniKeybordWillShow}]}}>
+                            <View style={{flex:1,position:'relative',transform: [{ rotate: '180deg'}]}}>
+                                {this.props.renderContent && this.props.renderContent()}
+                                <FlashList
+                                    {...this.props.flatListProps}
+                                    estimatedItemSize={100}
+                                    ref={e => (this.chatList = e)}
+                                    inverted={false}
+                                    data={currentList}
+                                    ListFooterComponent={this.props.renderLoadEarlier}
+                                    extraData={this.props.extraData}
+                                    automaticallyAdjustContentInsets={false}
+                                    onScroll={(e) => {
+                                        this.props.onScroll(e);
+                                    }}
+                                    showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
+                                    onEndReachedThreshold={this.props.onEndReachedThreshold}
+                                    enableEmptySections
+                                    scrollEventThrottle={100}
+                                    keyExtractor={(item,index) => item.id + index}
+                                    onEndReached={() => this._loadHistory()}
+                                    onLayout={(e) => {
+                                        // this._scrollToBottom();
+                                        // this.listHeight = e.nativeEvent.layout.height;
+                                    }}
+                                    onContentSizeChange={(contentWidth, contentHeight) => {
+                                        // this._scrollToBottom({contentWidth, contentHeight});
+                                    }}
+                                    renderItem={({item, index}) =>
+                                        <ChatItem
+                                            ImageComponent={ImageComponent}
+                                            user={this.props.userProfile}
+                                            chatType={chatType}
+                                            lastReadAt={this.props.lastReadAt}
+                                            showIsRead={this.props.showIsRead}
+                                            isReadStyle={this.props.isReadStyle}
+                                            reSendMessage={this.props.reSendMessage}
+                                            renderMessageCheck={this.props.renderMessageCheck}
+                                            message={item}
+                                            currentIndex={this.state.currentIndex}
+                                            isOpen={this.state.selectMultiple}
+                                            selectMultiple={this.selectMultiple}
+                                            rowId={index}
+                                            popShow={this.show}
+                                            messageSelectIcon={this.props.messageSelectIcon}
+                                            renderMessageTime={this.props.renderMessageTime}
+                                            onMessageLongPress={this.show}
+                                            onMessagePress={this.props.onMessagePress}
+                                            onPressAvatar={this._PressAvatar}
+                                            messageErrorIcon={this.props.messageErrorIcon}
+                                            voiceLeftIcon={this.props.voiceLeftIcon}
+                                            voiceRightIcon={this.props.voiceRightIcon}
+                                            closeAll={this.closeAll}
+                                            renderAvatar={this.props.renderAvatar}
+                                            avatarStyle={this.props.avatarStyle}
+                                            showUserName={this.props.showUserName}
+                                            userNameStyle={this.props.userNameStyle}
+                                            itemContainerStyle={this.props.itemContainerStyle}
+                                            renderErrorMessage={this.props.renderErrorMessage}
+                                            renderTextMessage={this.props.renderTextMessage}
+                                            renderImageMessage={this.props.renderImageMessage}
+                                            renderVoiceMessage={this.props.renderVoiceMessage}
+                                            renderVideoMessage={this.props.renderVideoMessage}
+                                            renderLocationMessage={this.props.renderLocationMessage}
+                                            renderShareMessage={this.props.renderShareMessage}
+                                            renderVideoCallMessage={this.props.renderVideoCallMessage}
+                                            renderVoiceCallMessage={this.props.renderVoiceCallMessage}
+                                            renderRedEnvelopeMessage={this.props.renderRedEnvelopeMessage}
+                                            renderFileMessage={this.props.renderFileMessage}
+                                            renderSystemMessage={this.props.renderSystemMessage}
+                                            renderPatMessage={this.props.renderPatMessage}
+                                            renderCustomMessage={this.props.renderCustomMessage}
+                                            rightMessageBackground={this.props.rightMessageBackground}
+                                            leftMessageBackground={this.props.leftMessageBackground}
+                                            voiceLoading={this.props.voiceLoading}
+                                            voicePlaying={this.props.voicePlaying}
+                                            savePressIndex={this.savePressIndex}
+                                            pressIndex={this.state.pressIndex}
+                                            voiceLeftLoadingColor={this.props.voiceLeftLoadingColor}
+                                            voiceRightLoadingColor={this.props.voiceRightLoadingColor}
+                                            leftMessageTextStyle={this.props.leftMessageTextStyle}
+                                            rightMessageTextStyle={this.props.rightMessageTextStyle}
+                                        />}
+                                />
+                            </View>
                         </Animated.View>
                     </Pressable>
                     {

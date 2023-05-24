@@ -14,7 +14,9 @@ import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
 import Control from './control';
 import {PressableOpacity} from 'react-native-pressable-opacity';
+import PagerView from 'react-native-pager-view';
 const {width, height} = Dimensions.get('window');
+const AnimatedViewPagerAndroid = Animated.createAnimatedComponent(ViewPagerAndroid);
 
 export default class EmojiPanel extends PureComponent {
   constructor(props) {
@@ -49,8 +51,7 @@ export default class EmojiPanel extends PureComponent {
         }]}
         >
           <ViewPagerAndroidContainer style={{height: panelContainerHeight, width}}>
-            {/* 视图容器 */}
-            <ContainerComponent
+            <AnimatedViewPagerAndroid
                 ref={e => {
                   this.scroll = e;
                 }}
@@ -61,6 +62,7 @@ export default class EmojiPanel extends PureComponent {
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
                 bounces={false}
+                lazy={true}
                 automaticallyAdjustContentInsets={false}
                 scrollEventThrottle={200}
             >
@@ -99,7 +101,7 @@ export default class EmojiPanel extends PureComponent {
                     },
                 )
               }
-            </ContainerComponent>
+            </AnimatedViewPagerAndroid>
             <View style={{height:40}}>
               <Control style={{bottom: 10}} index={this.state.pageIndex} total={this.total}/>
             </View>
