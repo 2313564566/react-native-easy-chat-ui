@@ -10,7 +10,7 @@ import {
     Clipboard,
     Dimensions,
     Pressable,
-    Animated
+    Animated, FlatList,
 } from 'react-native';
 import {FlashList} from '@shopify/flash-list';
 import {ViewPropTypes as RNViewPropTypes} from 'deprecated-react-native-prop-types';
@@ -42,10 +42,6 @@ class ChatWindow extends PureComponent {
         this.aniPlusheight  = new Animated.Value(0)
         this.autoFocus = false;
         this.refTextInput = null;
-        // this.leftHeight = new Animated.Value(0)
-        // this.paddingHeight = new Animated.Value(0)
-        // this.emojiHeight = new Animated.Value(0)
-        // this.HeaderHeight = this.isIphoneX ? iphoneXHeaderPadding + this.iosHeaderHeight : Platform.OS === 'android' ? androidHeaderHeight : this.iosHeaderHeight
         this.HeaderHeight = headerHeight;
         this.listHeight = height - this.HeaderHeight;
         this.isInverted = false;
@@ -320,6 +316,7 @@ class ChatWindow extends PureComponent {
             easing: Easing.bezier(0.38,0.7,0.125,1),
         }).start();
         this.setState({panelShow: false});
+        this.props.panelClose && this.props.panelClose(this.props.allPanelHeight);
         callback && callback();
     };
 
@@ -338,6 +335,7 @@ class ChatWindow extends PureComponent {
             easing: Easing.bezier(0.38,0.7,0.125,1),
         }).start();
         callback && callback();
+        this.props.panelOpen && this.props.panelOpen(this.props.allPanelHeight);
         this.setState({panelShow: true});
     };
 
@@ -402,6 +400,7 @@ class ChatWindow extends PureComponent {
             easing: Easing.bezier(0.38,0.7,0.125,1),
         }).start();
         this.setState({emojiShow: true});
+        this.props.panelOpen && this.props.panelOpen(this.props.allPanelHeight);
         callback && callback();
 
     };
@@ -423,6 +422,7 @@ class ChatWindow extends PureComponent {
             easing: Easing.bezier(0.38,0.7,0.125,1),
         }).start();
         this.setState({emojiShow: false});
+        this.props.panelClose && this.props.panelClose(this.props.allPanelHeight);
         callback && callback();
     };
 
@@ -668,13 +668,13 @@ class ChatWindow extends PureComponent {
                         flex: 1,
                         backgroundColor: 'transparent'
                     }, this.props.chatWindowStyle]}>
-                        <Animated.View style={{flex:1,position:'relative',transform: [{translateY: this.aniKeybordWillShow}]}}>
+                        <Animated.View style={{flex:1,position:'relative',transform: [{ rotate: '180deg' }]}}>
                             {this.props.renderContent && this.props.renderContent()}
                             <FlashList
                                 {...this.props.flatListProps}
                                 estimatedItemSize={100}
                                 ref={e => (this.chatList = e)}
-                                inverted={inverted}
+                                inverted={false}
                                 data={currentList}
                                 ListFooterComponent={this.props.renderLoadEarlier}
                                 extraData={this.props.extraData}

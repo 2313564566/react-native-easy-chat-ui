@@ -24,21 +24,6 @@ export default class TextMessage extends PureComponent {
                         {views}
                     </View>
                     {isSelf && <View style={[styles.triangle, styles.right_triangle, {borderColor: rightMessageBackground}]} />}
-                    {chatType !== 'group' && isSelf && showIsRead && (
-                        <Text style={[{textAlign: 'right', fontSize: 13}, isReadStyle]}>
-                            {this.props.lastReadAt && this.props.lastReadAt - message.time > 0 ? '已读' : '未读'}
-                        </Text>)}
-                </View>
-                <View style={{alignItems: 'center', justifyContent: 'center', marginRight: 10}}>
-                    {!isSelf ? null : message.sendStatus === undefined ? null : message.sendStatus === 0 ?
-                        <ActivityIndicator/> : message.sendStatus < 0 ? <PressableOpacity
-                            disabled={false}
-                            onPress={() => {
-                                if (message.sendStatus === -2) {
-                                    reSendMessage(message);
-                                }
-                            }}>
-                        </PressableOpacity> : null}
                 </View>
             </PressableOpacity>);
     }
@@ -52,10 +37,12 @@ const styles = StyleSheet.create({
     subEmojiStyle: {
         width: 25, height: 25,
     }, triangle: {
-        width: 0, height: 0, zIndex: 999, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent', borderColor: '#fff', marginTop: 16,
+        width: 0, height: 0, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent', borderColor: '#fff', marginTop: 16,
     }, left_triangle: {
+        marginLeft: 5,
         borderLeftWidth: 0, borderRightWidth: Platform.OS === 'android' ? 6 : 10, marginLeft: 5,
     }, right_triangle: {
+        marginRight: 5,
         borderRightWidth: 0, borderLeftWidth: Platform.OS === 'android' ? 6 : 10, borderColor: '#a0e75a', marginRight: 5,
     }, right: {
         flexDirection: 'row-reverse',

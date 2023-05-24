@@ -10,6 +10,7 @@ import {
 import TextMessage from './TextMessage'
 import ImageMessage from './ImageMessage'
 import VoiceMessage from './VoiceMessage'
+import {PressableOpacity} from 'react-native-pressable-opacity/src/PressableOpacity';
 const { width } = Dimensions.get('window')
 
 export default class ChatItem extends PureComponent {
@@ -193,63 +194,26 @@ export default class ChatItem extends PureComponent {
     const avatarSource = typeof(avatar) === 'number' ? avatar : {uri: avatar}
     const showName = chatType === 'group' && showUserName && type !== 'system'
     return (
-      <View>
-        <Pressable
-          onPress={() => {
-            this.setState({ isSelect: !this.state.isSelect })
-            selectMultiple(!this.state.isSelect, parseInt(rowId), message)
-          }}
-        >
-          <View>
-            {
-              type === 'system'
-                ? null
-                : <Pressable activeOpacity={1}>
-                  {
-                    message.renderTime ? this.props.renderMessageTime(message.time) : null
-                  }
-                </Pressable>
-            }
-            <Pressable
-              onPress={() => this.props.closeAll()}
-              disabled={isOpen}
-              activeOpacity={1}
-              style={[styles.chat, isSelf ? styles.right : styles.left, itemContainerStyle]} ref={(e) => (this.content = e)}
-            >
+            <View style={[styles.chat, isSelf ? styles.right : styles.left, itemContainerStyle]} ref={(e) => (this.content = e)}>
               {
                 type === 'system'
                   ? null
-                  :  <Pressable
-                    activeOpacity={0.7}
-                    disabled={isOpen}
-                    onPress={() => this.props.onPressAvatar(isSelf, message.targetId)}
-                  >
+                  :  <PressableOpacity activeOpacity={0.7} disabled={isOpen} onPress={() => this.props.onPressAvatar(isSelf, message.targetId)}>
                     {this.props.renderAvatar ? (
                       this.props.renderAvatar(message)
                     ) : (
                       <ImageComponent source={avatarSource} style={[styles.avatar, avatarStyle]} />
                     )}
-                  </Pressable>
+                  </PressableOpacity>
               }
-              <View style={[
-                  { flexDirection:'row',justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' },
-                  type === 'system' && { flex: 1 },
-                ]}>
+              <View style={[{ flexDirection:'row',justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' }, type === 'system' && { flex: 1 }]}>
                 {
-                  showName && !isSelf? <Text style={[styles.userName, userNameStyle]}>{nickName}</Text>
-                    : null
+                  showName && !isSelf? <Text style={[styles.userName, userNameStyle]}>{nickName}</Text> : null
                 }
                 {this._renderContent(isSelf)}
-                 {message.footer}
+                {message.footer}
               </View>
-            </Pressable>
-
-            {
-              this.props.renderErrorMessage(message.sendStatus)
-            }
-          </View>
-        </Pressable>
-      </View>
+            </View>
     )
   }
 }
@@ -285,7 +249,8 @@ const styles = StyleSheet.create({
   },
   chat: {
     paddingHorizontal: 10,
-    paddingVertical: 14
+    paddingVertical: 14,
+    transform: [{ rotate: '180deg' }],
   },
   right: {
     flexDirection: 'row-reverse'

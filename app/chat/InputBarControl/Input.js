@@ -29,8 +29,9 @@ class Input extends PureComponent {
           onSubmitEditing={onSubmit}
           returnKeyLabel='send'
           returnKeyType='send'
+          autoCorrect={false}
           enablesReturnKeyAutomatically={true}
-          value={messageContent}
+          defaultValue={messageContent}
           contextMenuHidden={true}
           style={[styles.commentBar__input, { padding: Platform.OS === 'ios'?8:0,height: 35 }, inputStyle]}
         />
