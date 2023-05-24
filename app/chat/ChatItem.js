@@ -194,26 +194,31 @@ export default class ChatItem extends PureComponent {
     const avatarSource = typeof(avatar) === 'number' ? avatar : {uri: avatar}
     const showName = chatType === 'group' && showUserName && type !== 'system'
     return (
-            <View style={[styles.chat, isSelf ? styles.right : styles.left, itemContainerStyle]} ref={(e) => (this.content = e)}>
-              {
-                type === 'system'
+        <View style={{transform: [{ rotate: '180deg' }]}}>
+          {
+            message.renderTime ? this.props.renderMessageTime(message.time) : null
+          }
+          <View style={[styles.chat, isSelf ? styles.right : styles.left, itemContainerStyle]} ref={(e) => (this.content = e)}>
+            {
+              type === 'system'
                   ? null
                   :  <PressableOpacity activeOpacity={0.7} disabled={isOpen} onPress={() => this.props.onPressAvatar(isSelf, message.targetId)}>
                     {this.props.renderAvatar ? (
-                      this.props.renderAvatar(message)
+                        this.props.renderAvatar(message)
                     ) : (
-                      <ImageComponent source={avatarSource} style={[styles.avatar, avatarStyle]} />
+                        <ImageComponent source={avatarSource} style={[styles.avatar, avatarStyle]} />
                     )}
                   </PressableOpacity>
+            }
+            <View style={[{ flexDirection:'row',justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' }, type === 'system' && { flex: 1 }]}>
+              {
+                showName && !isSelf? <Text style={[styles.userName, userNameStyle]}>{nickName}</Text> : null
               }
-              <View style={[{ flexDirection:'row',justifyContent: showName && type === 'voice' ? 'flex-start' : 'center' }, type === 'system' && { flex: 1 }]}>
-                {
-                  showName && !isSelf? <Text style={[styles.userName, userNameStyle]}>{nickName}</Text> : null
-                }
-                {this._renderContent(isSelf)}
-                {message.footer}
-              </View>
+              {this._renderContent(isSelf)}
+              {message.footer}
             </View>
+          </View>
+        </View>
     )
   }
 }
@@ -250,7 +255,6 @@ const styles = StyleSheet.create({
   chat: {
     paddingHorizontal: 10,
     paddingVertical: 14,
-    transform: [{ rotate: '180deg' }],
   },
   right: {
     flexDirection: 'row-reverse'
