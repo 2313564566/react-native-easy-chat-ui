@@ -455,7 +455,7 @@ class ChatWindow extends PureComponent {
                 return this.closeEmoji(true, () => {
                     if (this.refTextInput) {
                         this.refTextInput.blur();
-                        setTimeout(() => this.refTextInput.focus(),100);
+                        setTimeout(() => this.refTextInput && this.refTextInput.focus(),100);
                     }
                 });
             } else {
