@@ -22,15 +22,28 @@ export default class InputBar extends PureComponent {
   setInputHeight = (height) => {
     this.inputHeight = height
   }
-
   renderIcon = () => {
     const { sendIcon, plusIcon, usePlus, messageContent, sendUnableIcon, ImageComponent } = this.props
+    const sendAbleIcon = sendIcon || <ImageComponent source={require('../../source/image/sendAble.png')} style={{ width: 30, height: 30 }} />
+    const sendUnableIconDefault = sendUnableIcon || <ImageComponent source={require('../../source/image/send.png')} style={{ width: 30, height: 30 }} />
     if (usePlus) {
-      return plusIcon || <ImageComponent source={require('../../source/image/more.png')} style={{ width: 30, height: 30 }} />
+      if (messageContent.trim().length) {
+        return sendAbleIcon
+      } else {
+        return plusIcon || <ImageComponent source={require('../../source/image/more.png')} style={{ width: 30, height: 30 }} />
+      }
     } else {
       return messageContent.trim().length ? sendAbleIcon : sendUnableIconDefault
     }
   }
+  // renderIcon = () => {
+  //   const { sendIcon, plusIcon, usePlus, messageContent, sendUnableIcon, ImageComponent } = this.props
+  //   if (usePlus) {
+  //     return plusIcon || <ImageComponent source={require('../../source/image/more.png')} style={{ width: 30, height: 30 }} />
+  //   } else {
+  //     return messageContent.trim().length ? sendAbleIcon : sendUnableIconDefault
+  //   }
+  // }
 
   renderEmojieIcon = () => {
     const { isEmojiShow, keyboardIcon, emojiIcon, ImageComponent } = this.props
@@ -150,12 +163,15 @@ export default class InputBar extends PureComponent {
           <PressableOpacity
             style={{ marginLeft: 8 }}
             onPress={() => {
+              if (messageContent.trim().length > 0) {
+                onSubmitEditing('text', messageContent)
+              } else {
                 if (usePlus) {
-                  Keyboard.dismiss();
                   isShowPanel(!isPanelShow)
                 } else {
                   return null
                 }
+              }
             }}
             activeOpacity={0.7}
           >
