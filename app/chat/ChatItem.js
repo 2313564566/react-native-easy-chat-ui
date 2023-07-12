@@ -194,7 +194,7 @@ export default class ChatItem extends PureComponent {
     const avatarSource = typeof(avatar) === 'number' ? avatar : {uri: avatar}
     const showName = chatType === 'group' && showUserName && type !== 'system'
     return (
-        <View style={{transform: [{ rotate: '180deg' }]}}>
+        <View style={{flex:1}}>
           {
             message.renderTime ? this.props.renderMessageTime(message.time) : null
           }
