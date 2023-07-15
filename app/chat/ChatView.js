@@ -22,6 +22,7 @@ import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
 import PagerView from 'react-native-pager-view';
 import {StatusBar} from 'react-native';
+import {PressableOpacity} from 'react-native-pressable-opacity/src/PressableOpacity';
 
 const {height, width} = Dimensions.get('window');
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
@@ -664,7 +665,7 @@ class ChatWindow extends PureComponent {
                     position: 'relative',
                 }}
                 >
-                    <View style={[{
+                    <Pressable onPress={() => this.closeAll(null)} style={[{
                         flex: 1,
                         backgroundColor: 'transparent',
                     }, this.props.chatWindowStyle]}>
@@ -752,7 +753,7 @@ class ChatWindow extends PureComponent {
                                     />}
                             />
                         </Animated.View>
-                    </View>
+                    </Pressable>
                     {
                         this.props.showInput
                             ? <InputBar
