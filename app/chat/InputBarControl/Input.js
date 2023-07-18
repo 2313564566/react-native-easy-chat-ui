@@ -45,6 +45,7 @@ export default Input
 const styles = StyleSheet.create({
   commentBar__input: {
     borderRadius: 18,
+    color:"black",
     height: 26,
     width: '100%',
     padding: 0,
