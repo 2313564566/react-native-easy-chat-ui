@@ -117,7 +117,7 @@ export default class InputBar extends PureComponent {
             inputHeightFix={inputHeightFix}
             onMethodChange={onMethodChange}
         />
-        <View style={styles.container}>
+        <View style={[styles.container,{width: useEmoji ? width - 130 : width - 100}]}>
           {showVoice
             ? <VoiceButton
               audioHasPermission={audioHasPermission}
@@ -151,15 +151,17 @@ export default class InputBar extends PureComponent {
             />}
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <PressableOpacity
-              activeOpacity={0.7}
-              onPress={() => {
-                Keyboard.dismiss();
-                this.props.showEmoji()
-              }}
-          >
-            {this.renderEmojieIcon()}
-          </PressableOpacity>
+          {useEmoji &&
+            <PressableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                  Keyboard.dismiss();
+                  this.props.showEmoji()
+                }}
+            >
+              {this.renderEmojieIcon()}
+            </PressableOpacity>
+          }
           <PressableOpacity
             style={{ marginLeft: 8 }}
             onPress={() => {
