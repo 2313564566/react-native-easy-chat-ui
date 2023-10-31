@@ -10,22 +10,17 @@ const {width} = Dimensions.get('window');
 export default class TextMessage extends PureComponent {
     render() {
         const {isSelf, message, messageErrorIcon, onMessagePress, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent} = this.props;
-        return (<PressableOpacity activeOpacity={0.8} onPress={() => {
-            if (message.type === 'master') this.props.onMessagePress('master', parseInt(this.props.rowId), message.content, message);
-        }}
-                style={[isSelf ? styles.right : styles.left]}
-                collapsable={false}
-            >
+        return (<View style={[isSelf ? styles.right : styles.left]}>
                 <View style={{flexDirection:'row'}}>
-                    {!isSelf && <View style={[styles.triangle, styles.left_triangle, {borderColor: leftMessageBackground}]} />}
+                    {!isSelf && <View style={[styles.triangle, styles.left_triangle, {backgroundColor: leftMessageBackground}]} />}
                     <View style={[styles.container, {
                         backgroundColor: isSelf ? rightMessageBackground : leftMessageBackground,
                     }]}>
                         {views}
                     </View>
-                    {isSelf && <View style={[styles.triangle, styles.right_triangle, {borderColor: rightMessageBackground}]} />}
+                    {isSelf && <View style={[styles.triangle, styles.right_triangle, {backgroundColor: rightMessageBackground}]} />}
                 </View>
-            </PressableOpacity>);
+            </View>);
     }
 }
 const styles = StyleSheet.create({
@@ -37,13 +32,16 @@ const styles = StyleSheet.create({
     subEmojiStyle: {
         width: 25, height: 25,
     }, triangle: {
-        width: 0, height: 0, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent', borderColor: '#fff', marginTop: 16,
+        width: 10, height: 10, marginTop: 16,
+        transform: [
+            { rotate: '45deg' }
+        ],
     }, left_triangle: {
-        marginLeft: 5,
-        borderLeftWidth: 0, borderRightWidth: Platform.OS === 'android' ? 6 : 10,
+        marginLeft:5,
+        marginRight: -5,
     }, right_triangle: {
+        marginLeft: -5,
         marginRight: 5,
-        borderRightWidth: 0, borderLeftWidth: Platform.OS === 'android' ? 6 : 10, borderColor: '#a0e75a',
     }, right: {
         flexDirection: 'row-reverse',
     }, left: {
