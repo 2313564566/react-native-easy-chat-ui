@@ -87,11 +87,8 @@ export default class VoiceMessage extends PureComponent {
                         this.props.savePressIndex(this.props.rowId);
                         this.props.onMessagePress('voice', parseInt(this.props.rowId), message.content.uri, message);
                     }}
-                    onLongPress={() => {
-                        this.props.onMessageLongPress(this[`item_${this.props.rowId}`], 'voice', parseInt(this.props.rowId), message.content.uri, message);
-                    }}
                 >
-                    {!isSelf  && <View style={[styles.triangle, styles.left_triangle, loading ? {borderColor: voiceLeftLoadingColor} : {borderColor: leftMessageBackground}]}/>}
+                    {!isSelf  && <View style={[styles.triangle, styles.left_triangle, loading ? {backgroundColor: voiceLeftLoadingColor} : {backgroundColor: leftMessageBackground}]}/>}
                     <View
                         style={[styles.voiceArea, loading ? {
                             backgroundColor: isSelf ? voiceRightLoadingColor : voiceLeftLoadingColor,
@@ -109,7 +106,7 @@ export default class VoiceMessage extends PureComponent {
                             </Text>}
                         </View>
                     </View>
-                    {isSelf && <View style={[styles.triangle, styles.right_triangle, loading ? {borderColor: voiceRightLoadingColor} : {borderColor: rightMessageBackground }]}/>}
+                    {isSelf && <View style={[styles.triangle, styles.right_triangle, loading ? {backgroundColor: voiceRightLoadingColor} : {backgroundColor: rightMessageBackground }]}/>}
                 </PressableOpacity>
                 <View style={{alignItems: 'center', justifyContent: 'center', marginRight: 10}}>
                     {!isSelf ? null : message.sendStatus === undefined ? null : message.sendStatus === 0 ?
@@ -134,17 +131,20 @@ export default class VoiceMessage extends PureComponent {
 
 const styles = StyleSheet.create({
     triangle: {
-        width: 0, height: 0, zIndex: 999, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent',
+        width: 10, height: 10, marginTop: 0,
+        transform: [
+            { rotate: '45deg' }
+        ],
     }, left_triangle: {
-        arginLeft: 5,
-        borderLeftWidth: 0, borderRightWidth: Platform.OS === 'android' ? 6 : 10, marginLeft: 5,
+        marginLeft:5,
+        marginRight: -5,
     }, right_triangle: {
+        marginLeft: -5,
         marginRight: 5,
-        borderRightWidth: 0, borderLeftWidth: Platform.OS === 'android' ? 6 : 10, borderColor: '#a0e75a', marginRight: 5,
     }, right: {
-        flexDirection: 'row-reverse', alignItems: 'center',
+        flexDirection: 'row-reverse',alignItems: 'center',
     }, left: {
-        flexDirection: 'row', alignItems: 'center',
+        flexDirection: 'row',alignItems: 'center',
     }, voiceArea: {
         paddingVertical: 8, borderRadius: 12, maxWidth: width - 160, justifyContent: 'center', minHeight: 30,
     },
