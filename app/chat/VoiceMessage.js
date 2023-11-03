@@ -3,6 +3,7 @@ import {
     View, TouchableOpacity, StyleSheet, Text, ActivityIndicator, Dimensions, Platform,
 } from 'react-native';
 import {PressableOpacity} from 'react-native-pressable-opacity';
+import Triangle from "@react-native-toolkit/triangle";
 
 const {width} = Dimensions.get('window');
 
@@ -88,7 +89,7 @@ export default class VoiceMessage extends PureComponent {
                         this.props.onMessagePress('voice', parseInt(this.props.rowId), message.content.uri, message);
                     }}
                 >
-                    {!isSelf  && <View style={[styles.triangle, styles.left_triangle, loading ? {backgroundColor: voiceLeftLoadingColor} : {backgroundColor: leftMessageBackground}]}/>}
+                    {!isSelf  && <Triangle mode={"left"} base={10} color={loading ? voiceLeftLoadingColor : leftMessageBackground} style={{marginTop: 0}} />}
                     <View
                         style={[styles.voiceArea, loading ? {
                             backgroundColor: isSelf ? voiceRightLoadingColor : voiceLeftLoadingColor,
@@ -106,7 +107,7 @@ export default class VoiceMessage extends PureComponent {
                             </Text>}
                         </View>
                     </View>
-                    {isSelf && <View style={[styles.triangle, styles.right_triangle, loading ? {backgroundColor: voiceRightLoadingColor} : {backgroundColor: rightMessageBackground }]}/>}
+                    {isSelf  && <Triangle mode={"right"} base={10} color={loading ? voiceRightLoadingColor : rightMessageBackground} style={{marginTop: 0}} />}
                 </PressableOpacity>
                 <View style={{alignItems: 'center', justifyContent: 'center', marginRight: 10}}>
                     {!isSelf ? null : message.sendStatus === undefined ? null : message.sendStatus === 0 ?
@@ -130,21 +131,12 @@ export default class VoiceMessage extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-    triangle: {
-        width: 10, height: 10, marginTop: 0,
-        transform: [
-            { rotate: '45deg' }
-        ],
-    }, left_triangle: {
+    right: {
         marginLeft:5,
-        marginRight: -5,
-    }, right_triangle: {
-        marginLeft: -5,
-        marginRight: 5,
-    }, right: {
-        flexDirection: 'row-reverse',alignItems: 'center',
+        flexDirection: 'row-reverse',
     }, left: {
-        flexDirection: 'row',alignItems: 'center',
+        marginLeft:5,
+        flexDirection: 'row',
     }, voiceArea: {
         paddingVertical: 8, borderRadius: 12, maxWidth: width - 160, justifyContent: 'center', minHeight: 30,
     },
