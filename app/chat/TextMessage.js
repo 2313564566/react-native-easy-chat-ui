@@ -4,47 +4,33 @@ import {
 } from 'react-native';
 import {PressableOpacity} from 'react-native-pressable-opacity';
 import {changeEmojiText} from './utils';
-
+import Triangle from "@react-native-toolkit/triangle";
 const {width} = Dimensions.get('window');
 
 export default class TextMessage extends PureComponent {
     render() {
         const {isSelf, message, messageErrorIcon, onMessagePress, views, isOpen, rightMessageBackground, leftMessageBackground, reSendMessage, chatType, isReadStyle, showIsRead, ImageComponent} = this.props;
         return (<View style={[isSelf ? styles.right : styles.left]}>
-                <View style={{flexDirection:'row'}}>
-                    {!isSelf && <View style={[styles.triangle, styles.left_triangle, {backgroundColor: leftMessageBackground}]} />}
-                    <View style={[styles.container, {
-                        backgroundColor: isSelf ? rightMessageBackground : leftMessageBackground,
-                    }]}>
-                        {views}
+                    <View style={{flexDirection:'row'}}>
+                        {!isSelf && <Triangle mode={"left"} base={10} color={leftMessageBackground} style={{marginTop: 16}} />}
+                        <View style={[styles.container, {
+                            backgroundColor: isSelf ? rightMessageBackground : leftMessageBackground,
+                        }]}>
+                            {views}
+                        </View>
+                        {isSelf && <Triangle mode={"right"} base={10} color={rightMessageBackground} style={{marginTop: 16}} />}
                     </View>
-                    {isSelf && <View style={[styles.triangle, styles.right_triangle, {backgroundColor: rightMessageBackground}]} />}
-                </View>
             </View>);
     }
 }
 const styles = StyleSheet.create({
-
-    container: {
+    container:{
         flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', borderRadius: 12, paddingHorizontal: 15, paddingVertical: 15, maxWidth: width - 160, minHeight: 20,
-    },
-
-    subEmojiStyle: {
-        width: 25, height: 25,
-    }, triangle: {
-        width: 10, height: 10, marginTop: 16,
-        transform: [
-            { rotate: '45deg' }
-        ],
-    }, left_triangle: {
-        marginLeft:5,
-        marginRight: -5,
-    }, right_triangle: {
-        marginLeft: -5,
-        marginRight: 5,
     }, right: {
+        marginLeft:5,
         flexDirection: 'row-reverse',
     }, left: {
+        marginLeft:5,
         flexDirection: 'row',
     },
 });
