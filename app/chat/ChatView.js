@@ -144,8 +144,8 @@ class ChatWindow extends PureComponent {
                     if(panelShow) this.closePanel();
                 }else {
                     Animated.timing(this.aniKeybordWillShow, {
-                        duration: 0,
-                        toValue: 0,
+                        duration: 200,
+                        toValue: -e.endCoordinates.height,
                         useNativeDriver: true,
                         easing: Easing.bezier(0.38, 0.7, 0.125, 1),
                     }).start();
@@ -160,7 +160,7 @@ class ChatWindow extends PureComponent {
             this.setState({keyboardShow: false});
             if(Platform.OS === 'android'){
                 Animated.timing(this.aniKeybordWillShow,{
-                    duration: 0,
+                    duration: 200,
                     toValue: 0,
                     useNativeDriver: true,
                     easing: Easing.out(Easing.exp)
