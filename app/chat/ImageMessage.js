@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {
     View, StyleSheet, ActivityIndicator, Text,
 } from 'react-native';
-import {PressableOpacity} from 'react-native-pressable-opacity';
+import PressableOpacity from '../../../../src/components/PressableOpacity';
 
 export default class ImageMessage extends PureComponent {
     render() {

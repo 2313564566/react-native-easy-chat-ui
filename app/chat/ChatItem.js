@@ -10,7 +10,7 @@ import {
 import TextMessage from './TextMessage'
 import ImageMessage from './ImageMessage'
 import VoiceMessage from './VoiceMessage'
-import {PressableOpacity} from 'react-native-pressable-opacity/src/PressableOpacity';
+import PressableOpacity from '../../../../src/components/PressableOpacity';
 const { width } = Dimensions.get('window')
 
 export default class ChatItem extends PureComponent {

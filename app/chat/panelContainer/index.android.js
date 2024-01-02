@@ -24,7 +24,8 @@ export default class PanelContainer extends PureComponent {
       aniEmojiHeight,
       aniPlusHeight,
       panelShow,
-      emojiShow
+      emojiShow,
+        renderEmojiItem
     } = this.props;
     return (
         <Animated.View
@@ -39,33 +40,26 @@ export default class PanelContainer extends PureComponent {
               transform: [{translateY: aniPanelHeight}],
             }}
         >
-          {
-            this.props.usePlus
-                ? <PlusPanel
-                    panelHeight={panelHeight}
-                    panelContainerHeight={panelContainerHeight}
-                    panelSource={this.props.panelSource}
-                    renderPanelRow={this.props.renderPanelRow}
-                    panelContainerStyle={this.props.panelContainerStyle}
-                    aniPlusHeight={aniPlusHeight}
-                    panelShow={panelShow}
-                />
-                : null
-          }
-          {
-            this.props.useEmoji
-                ? <EmojiPanel
-                    ImageComponent={ImageComponent}
-                    emojiHeight={emojiHeight}
-                    emojiList={emojiList}
-                    iphoneXBottomPadding={iphoneXBottomPadding}
-                    panelContainerHeight={panelContainerHeight}
-                    onPress={onEmojiSelected}
-                    aniEmojiHeight={aniEmojiHeight}
-                    emojiShow={emojiShow}
-                />
-                : null
-          }
+            <PlusPanel
+                panelHeight={panelHeight}
+                panelContainerHeight={panelContainerHeight}
+                panelSource={this.props.panelSource}
+                renderPanelRow={this.props.renderPanelRow}
+                panelContainerStyle={this.props.panelContainerStyle}
+                aniPlusHeight={aniPlusHeight}
+                panelShow={panelShow}
+            />
+            <EmojiPanel
+                ImageComponent={ImageComponent}
+                emojiHeight={emojiHeight}
+                emojiList={emojiList}
+                iphoneXBottomPadding={iphoneXBottomPadding}
+                panelContainerHeight={panelContainerHeight}
+                onPress={onEmojiSelected}
+                aniEmojiHeight={aniEmojiHeight}
+                renderEmojiItem={renderEmojiItem}
+                emojiShow={emojiShow}
+            />
         </Animated.View>
     );
   }

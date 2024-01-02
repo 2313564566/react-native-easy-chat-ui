@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {
     View, TouchableOpacity, StyleSheet, Text, ActivityIndicator, Dimensions, Platform,
 } from 'react-native';
-import {PressableOpacity} from 'react-native-pressable-opacity';
+import PressableOpacity from '../../../../src/components/PressableOpacity';
 import Triangle from "@react-native-toolkit/triangle";
 
 const {width} = Dimensions.get('window');

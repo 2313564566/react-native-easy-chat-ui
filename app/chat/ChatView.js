@@ -22,7 +22,8 @@ import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
 import PagerView from 'react-native-pager-view';
 import {StatusBar} from 'react-native';
-import {PressableOpacity} from 'react-native-pressable-opacity/src/PressableOpacity';
+import PressableOpacity from '../../../../src/components/PressableOpacity';
+
 
 const {height, width} = Dimensions.get('window');
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
@@ -821,6 +822,7 @@ class ChatWindow extends PureComponent {
                             panelContainerBackgroundColor={this.props.panelContainerBackgroundColor}
                             visibleHeight={this.visibleHeight}
                             panelContainerHeight={panelContainerHeight}
+                            renderEmojiItem={this.props.renderEmojiItem}
                             usePlus={this.props.usePlus}
                             useEmoji={this.props.useEmoji}
                             emojiList={this.props.emojiList}
