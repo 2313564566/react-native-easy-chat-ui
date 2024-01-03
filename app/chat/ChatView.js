@@ -161,7 +161,7 @@ class ChatWindow extends PureComponent {
             this.setState({keyboardShow: false});
             if(Platform.OS === 'android'){
                 Animated.timing(this.aniKeybordWillShow,{
-                    duration: 200,
+                    duration: 100,
                     toValue: 0,
                     useNativeDriver: true,
                     easing: Easing.out(Easing.exp)

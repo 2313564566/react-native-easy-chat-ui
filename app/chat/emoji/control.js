@@ -66,7 +66,7 @@ export default class Control extends PureComponent {
   render () {
     let { style, index, total, ...others } = this.props
     return (
-      <View style={[styles.container, style]} pointerEvents='box-none'>
+      <View style={[styles.container, style]} pointerEvents='none'>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {this.renderDots()}
         </View>
@@ -80,11 +80,10 @@ var styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    top: 0,
-    bottom: 8,
+    top: 10,
     padding: 4,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   }
 })

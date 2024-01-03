@@ -11,13 +11,12 @@ export default class PlusPanel extends PureComponent {
         return (
             <Animated.View
                 style={{
-                    opacity: 1,
+                    opacity: panelShow ? 1 : 0,
                     position: 'absolute',
                     height: panelContainerHeight,
                     transform: [{translateY: aniPlusHeight}],
                     backgroundColor: '#f5f5f5',
-                    width,
-                    display: panelShow ? 'flex' : 'none',
+                    width
                 }}
                 renderToHardwareTextureAndroid
             >
