@@ -86,6 +86,7 @@ export default class EmojiPanel extends PureComponent {
                                     alignItems: 'center',
                                     marginBottom:8
                                   }}
+                                  unstable_pressDelay={500}
                                   onPress={() => {
                                     this.props.onPress(list);
                                   }}
