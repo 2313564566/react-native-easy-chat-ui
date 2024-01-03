@@ -1,4 +1,4 @@
-import React, {PureComponent, useEffect, useState,memo,useRef} from 'react';
+import React, {PureComponent} from 'react';
 import {
     View,
     ScrollView,
@@ -7,111 +7,115 @@ import {
     Dimensions,
     Animated,
     TouchableOpacity,
+    Pressable,
     StatusBar,
-    FlatList,Easing,Text,Image
 } from 'react-native';
 import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
 import Control from './control';
-import PressableOpacity from '../../../../../src/components/PressableOpacity';
-import {FlashList} from '@shopify/flash-list';
+import {PressableOpacity} from 'react-native-pressable-opacity';
+import PagerView from 'react-native-pager-view';
 const {width, height} = Dimensions.get('window');
-const BaseWidth = width/8;
+const AnimatedViewPagerAndroid = Animated.createAnimatedComponent(ViewPagerAndroid);
 
+export default class EmojiPanel extends PureComponent {
+  constructor(props) {
+    super(props);
+    const {allPanelHeight, isIphoneX, iphoneXBottomPadding} = props;
+    this.totalHeight = allPanelHeight + (isIphoneX ? iphoneXBottomPadding : 0);
+    this.state = {
+      pageIndex: 0,
+    };
+    this.total = 0;
+  }
 
-const EmojiPanel = (props) => {
-    const {allPanelHeight, isIphoneX, iphoneXBottomPadding,panelContainerHeight, aniEmojiHeight,emojiShow, ImageComponent} = props;
-    const [pageIndex,setPageIndex] = useState(0);
-    const totalHeight = allPanelHeight + (isIphoneX ? iphoneXBottomPadding : 0);
-    const refPagerView = useRef(null);
-    const [page, setPage] = useState(0);
-    const aniPageChange = useRef(new Animated.Value(0)).current;
-    const switchComponent = (e) => {
-        const {position, offset} = e.nativeEvent;
-        if (offset === 0) {
-            // this.setState({pageIndex: position});
-            setPageIndex(position);
-        }
+  switchComponent(e) {
+    const {position, offset} = e.nativeEvent;
+    if (offset === 0) {
+      this.setState({pageIndex: position});
     }
-    const renderItem = ({item,index}) => {
-        return (
-            <PressableOpacity key={index} style={{width: BaseWidth, height: BaseWidth + 4, justifyContent: 'center', alignItems: 'center'}}
-                              onPress={() => {
-                                  props.onPress(item);
-                              }}>
-                <Image source={{uri: item.url}} resizeMode="cover" style={{width: BaseWidth - 8, height: BaseWidth - 8}}/>
-                <Text style={{fontSize:8,color:'#aaa'}}>{item.name}</Text>
-            </PressableOpacity>
-        )
-    }
+  }
 
-    const onPageScroll = (e) => {
-        Animated.timing(aniPageChange, {
-            duration: 0,
-            toValue: (e.nativeEvent.position + e.nativeEvent.offset)  * 20,
-            useNativeDriver: true,
-            easing: Easing.linear,
-        }).start()
-    }
-
-    useEffect(() => {
-        console.log("emoji init...");
-        setPageIndex(0);
-    },[]);
-
+  render() {
+    const {panelContainerHeight, aniEmojiHeight,emojiShow, ImageComponent} = this.props;
+    const ContainerComponent = Platform.select({ios: ScrollView, android: ViewPagerAndroid});
+    this.total = 0;
     return (
         <Animated.View style={[styles.container, {
-            position: 'absolute',
-            height: panelContainerHeight,
-            backgroundColor: '#f5f5f5',
-            transform: [{translateY: aniEmojiHeight}],
-            opacity: emojiShow ? 1 : 0,
+          position: 'absolute',
+          height: panelContainerHeight,
+          backgroundColor: '#f5f5f5',
+          transform: [{translateY: aniEmojiHeight}],
+          opacity: 1,
+          display: emojiShow ? 'flex':'none'
         }]}
         >
-            <ViewPagerAndroidContainer style={{height: panelContainerHeight, width}}>
-                {/* 视图容器 */}
-                <ViewPagerAndroid
-                    onScroll={(e) => switchComponent(e)}
-                    onPageScroll={(e) => switchComponent(e)}
-                    horizontal
-                    style={{height: (BaseWidth + 8) * 3,width:'100%', marginTop: 24}}
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                    bounces={false}
-                    lazy={true}
-                    ref={refPagerView}
-                    onPageScroll={onPageScroll}
-                    automaticallyAdjustContentInsets={false}
-                    scrollEventThrottle={200}
-                >
-                    {props.emojiList.map((item, index) =>
-                        <View style={{width,height:'100%'}}>
-                            <FlashList estimatedItemSize={BaseWidth + 8} numColumns={8} showsVerticalScrollIndicator={false} keyExtractor={(_,i) => i} data={item} renderItem={renderItem} />
-                        </View>
-                    )}
-                </ViewPagerAndroid>
-                <View style={{flex:1}}>
-                    <View style={{position:'relative',flexDirection: 'row',justifyContent: 'center',alignItems: 'flex-start',height: 40}}>
-                        {props.emojiList.map((item,index) => {
-                            return <View key={index} style={{width:10,height:10,marginTop:10,marginHorizontal:5,borderRadius:5,backgroundColor:'#ddd'}} ></View>
-                        })}
-                        <Animated.View  style={{position:'absolute',top:10,zIndex:2,left: (width - props.emojiList.length*20)/2 + 5 ,width:10,height:10,borderRadius:5,backgroundColor:'#999',transform:[{
-                                translateX: aniPageChange
-                            }]}} />
-                    </View>
-                </View>
-            </ViewPagerAndroidContainer>
+          <ViewPagerAndroidContainer style={{height: panelContainerHeight, width}}>
+            <AnimatedViewPagerAndroid
+                ref={e => {
+                  this.scroll = e;
+                }}
+                onScroll={(e) => this.switchComponent(e)}
+                onPageScroll={(e) => this.switchComponent(e)}
+                horizontal
+                style={{flex: 1,marginTop: StatusBar.currentHeight + 10}}
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                bounces={false}
+                lazy={true}
+                automaticallyAdjustContentInsets={false}
+                scrollEventThrottle={200}
+            >
+              {
+                this.props.emojiList.map((item, index) => {
+                      this.total += 1;
+                      return <View key={index} style={{
+                        width,
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        paddingHorizontal: 15,
+                      }}>
+                        {
+                          item.map((list, i) =>
+                              <PressableOpacity
+                                  key={i}
+                                  style={{
+                                    width: (width - 30) / 8,
+                                    height: 45,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginBottom:8
+                                  }}
+                                  onPress={() => {
+                                    this.props.onPress(list);
+                                  }}
+                              >
+                                <ImageComponent
+                                    source={{uri: list.url}}
+                                    resizeMode="cover" style={{width: 40, height: 40}}
+                                />
+                              </PressableOpacity>,
+                          )
+                        }
+                      </View>;
+                    },
+                )
+              }
+            </AnimatedViewPagerAndroid>
+            <View style={{height:40}}>
+              <Control style={{bottom: 10}} index={this.state.pageIndex} total={this.total}/>
+            </View>
+          </ViewPagerAndroidContainer>
         </Animated.View>
     );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#f9f9f9',
-        borderTopWidth: 0,
-        borderColor: '#ccc',
-        overflow: 'hidden'
-    }
+  container: {
+    backgroundColor: '#f9f9f9',
+    borderTopWidth: 0,
+    borderColor: '#ccc',
+    overflow: 'hidden'
+  }
 })
-
-export default memo(EmojiPanel);

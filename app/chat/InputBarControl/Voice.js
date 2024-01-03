@@ -3,7 +3,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native'
-import PressableOpacity from '../../../../../src/components/PressableOpacity';
+import {PressableOpacity} from 'react-native-pressable-opacity';
 
 class Voice extends PureComponent {
   _renderContent = () => {

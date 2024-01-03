@@ -10,7 +10,7 @@ import Container from './Container'
 import Voice from './Voice'
 import VoiceButton from './VoiceButton'
 import Input from './Input'
-import PressableOpacity from '../../../../../src/components/PressableOpacity';
+import {PressableOpacity} from 'react-native-pressable-opacity';
 const { width } = Dimensions.get('window')
 
 export default class InputBar extends PureComponent {

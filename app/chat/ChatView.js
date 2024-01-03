@@ -22,8 +22,7 @@ import InputBar from './InputBarControl';
 import PanelContainer from './panelContainer';
 import PagerView from 'react-native-pager-view';
 import {StatusBar} from 'react-native';
-import PressableOpacity from '../../../../src/components/PressableOpacity';
-
+import {PressableOpacity} from 'react-native-pressable-opacity/src/PressableOpacity';
 
 const {height, width} = Dimensions.get('window');
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
@@ -145,8 +144,8 @@ class ChatWindow extends PureComponent {
                     if(panelShow) this.closePanel();
                 }else {
                     Animated.timing(this.aniKeybordWillShow, {
-                        duration: 200,
-                        toValue: -e.endCoordinates.height,
+                        duration: 0,
+                        toValue: 0,
                         useNativeDriver: true,
                         easing: Easing.bezier(0.38, 0.7, 0.125, 1),
                     }).start();
@@ -161,7 +160,7 @@ class ChatWindow extends PureComponent {
             this.setState({keyboardShow: false});
             if(Platform.OS === 'android'){
                 Animated.timing(this.aniKeybordWillShow,{
-                    duration: 100,
+                    duration: 0,
                     toValue: 0,
                     useNativeDriver: true,
                     easing: Easing.out(Easing.exp)
@@ -822,7 +821,6 @@ class ChatWindow extends PureComponent {
                             panelContainerBackgroundColor={this.props.panelContainerBackgroundColor}
                             visibleHeight={this.visibleHeight}
                             panelContainerHeight={panelContainerHeight}
-                            renderEmojiItem={this.props.renderEmojiItem}
                             usePlus={this.props.usePlus}
                             useEmoji={this.props.useEmoji}
                             emojiList={this.props.emojiList}
