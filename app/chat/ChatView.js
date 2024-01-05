@@ -301,6 +301,10 @@ class ChatWindow extends PureComponent {
     };
 
     closePanel = (realClose = false, callback) => {
+        if(this.props.allPanelHeight === 0) {
+            this.props.panelClose && this.props.panelClose(this.props.allPanelHeight);
+            return;
+        }
         const {keyboardShow} = this.state;
         if(!keyboardShow || (Platform.OS === 'android' && keyboardShow)) {
             Animated.timing(this.aniKeybordWillShow, {
@@ -322,6 +326,10 @@ class ChatWindow extends PureComponent {
     };
 
     showPanel = (callback) => {
+        if(this.props.allPanelHeight === 0) {
+            this.props.panelOpen && this.props.panelOpen(this.props.allPanelHeight);
+            return;
+        }
         this.setState({xHeight: 0});
         Animated.timing(this.aniKeybordWillShow,{
             duration: 300,

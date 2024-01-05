@@ -187,7 +187,7 @@ export default class ChatItem extends PureComponent {
 
   render () {
     const { user = {}, message, isOpen, selectMultiple, avatarStyle = {}, rowId, chatType, showUserName, userNameStyle, ImageComponent, itemContainerStyle = {} } = this.props
-    const isSelf = user.id === message.targetId
+    const isSelf = message.isSelf;
     const {type} = message
     const avatar = isSelf ? user.avatar : message.chatInfo.avatar
     const nickName = isSelf ? '' : message.chatInfo.nickName

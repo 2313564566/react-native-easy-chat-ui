@@ -51,7 +51,7 @@ export interface MessagePorpsType {
   /**
    * 消息谁发的就是谁的用户ID
    */
-  targetId: string
+  isSelf: boolean
   /**
    * 与你聊天人的资料
    */
