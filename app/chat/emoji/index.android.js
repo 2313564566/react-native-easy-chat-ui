@@ -19,12 +19,13 @@ const EmojiPanel = (props) => {
     const aniPageChange = useRef(new Animated.Value(0)).current;
     const renderItem = ({item,index}) => {
         return (
-            <PressableOpacity unstable_pressDelay={500} style={{width: BaseWidth, height: BaseWidth + 4, justifyContent: 'center', alignItems: 'center'}}
+            <PressableOpacity unstable_pressDelay={1000}
+                              style={{width: BaseWidth, height: BaseWidth + 15, justifyContent: 'center', alignItems: 'center'}}
                               onPress={() => {
                                   props.onPress(item);
                               }}>
-                <ImageComponent source={{uri: item.url}} resizeMode="cover" style={{width: BaseWidth - 8, height: BaseWidth - 8}}/>
-                <Text style={{fontSize:8,color:'#aaa'}}>{item.name}</Text>
+                <ImageComponent source={{uri: item.url}} resizeMode="contain" style={{width: BaseWidth - 10, height: BaseWidth - 10}}/>
+                <Text style={{fontSize:8,color:'#aaa',marginTop:3}}>{item.name}</Text>
             </PressableOpacity>
         )
     }
@@ -56,7 +57,7 @@ const EmojiPanel = (props) => {
                 {/* 视图容器 */}
                 <ViewPagerAndroid
                     horizontal
-                    style={{height: (BaseWidth + 8) * 3,width:'100%', marginTop: 24}}
+                    style={{height: (BaseWidth + 15) * 3,width:'100%', marginTop: 24}}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
@@ -67,7 +68,7 @@ const EmojiPanel = (props) => {
                 >
                     {props.emojiList.map((item, index) =>
                         <View key={index} style={{width,height:'100%'}}>
-                            <FlashList estimatedItemSize={BaseWidth + 8} numColumns={8} showsVerticalScrollIndicator={false} keyExtractor={(_,i) => i} data={item} renderItem={renderItem} />
+                            <FlashList estimatedItemSize={BaseWidth + 15} numColumns={8} showsVerticalScrollIndicator={false} keyExtractor={(_,i) => i} data={item} renderItem={renderItem} />
                         </View>
                     )}
                 </ViewPagerAndroid>
