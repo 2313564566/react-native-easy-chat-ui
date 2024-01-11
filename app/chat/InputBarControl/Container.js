@@ -2,10 +2,12 @@ import React, {PureComponent} from 'react';
 import {
     Platform,
     View,
-    StyleSheet, Dimensions,Animated
+    StyleSheet, Dimensions, Animated, DeviceEventEmitter,
 } from 'react-native';
 
 const {width,height} = Dimensions.get('window');
+const Screen = Dimensions.get('screen');
+let inputBarPostionY  = 0;
 
 class Container extends PureComponent {
     render() {
@@ -20,8 +22,11 @@ class Container extends PureComponent {
                     Platform.OS === 'ios' ? {paddingBottom: isIphoneX ? xHeight : 0} : {},
                 ]}
                 onLayout={(e) => {
-                    console.log("Container onLayout...",e.nativeEvent.layout,height);
-                    setInputHeight(e.nativeEvent.layout)
+                    console.log("Input Container layout change", e.nativeEvent);
+                    if(inputBarPostionY === 0) {
+                        inputBarPostionY = e.nativeEvent.layout.y;
+                    }
+                    setInputHeight(inputBarPostionY - e.nativeEvent.layout.y);
                 }}
             >
                 <View style={[{flexDirection: 'row', alignItems: 'center', marginVertical: 8, paddingHorizontal: 10}, inputContainerStyle]}>

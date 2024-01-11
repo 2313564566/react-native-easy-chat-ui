@@ -17,6 +17,7 @@ export default class ViewPagerAndroidContainer extends PureComponent {
 
   _onLayoutChange = (e) => {
     const { width, height } = e.nativeEvent.layout
+    console.log("_onLayoutChange",width,height);
     this.setState({ width: width, height: height })
   }
 }

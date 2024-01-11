@@ -4,8 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Dimensions,Keyboard
-} from 'react-native'
+  Dimensions, Keyboard, DeviceEventEmitter,
+} from 'react-native';
 import Container from './Container'
 import Voice from './Voice'
 import VoiceButton from './VoiceButton'
@@ -20,7 +20,9 @@ export default class InputBar extends PureComponent {
   }
 
   setInputHeight = (height) => {
-    this.inputHeight = height
+    console.log("setInputHeight",Math.abs(height));
+    this.props.onLayoutChange(Math.abs(height));
+    // DeviceEventEmitter.emit('onInputLayoutChange', Math.abs(height));
   }
   renderIcon = () => {
     const { sendIcon, plusIcon, usePlus, messageContent, sendUnableIcon, ImageComponent } = this.props

@@ -9,11 +9,13 @@ import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
 import {PressableOpacity} from 'react-native-pressable-opacity/src/PressableOpacity';
 import {FlashList} from '@shopify/flash-list';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 const {width, height} = Dimensions.get('window');
 const BaseWidth = width/8;
 
 
 const EmojiPanel = (props) => {
+    const inset  = useSafeAreaInsets();
     const {panelContainerHeight, aniEmojiHeight,emojiShow, ImageComponent} = props;
     const [pageIndex,setPageIndex] = useState(0);
     const aniPageChange = useRef(new Animated.Value(0)).current;
@@ -48,7 +50,6 @@ const EmojiPanel = (props) => {
         <Animated.View pointerEvents={emojiShow ? "auto":"none"} style={[styles.container, {
             position: 'absolute',
             height: panelContainerHeight,
-            backgroundColor: '#f5f5f5',
             transform: [{translateY: aniEmojiHeight}],
             opacity: emojiShow ? 1 : 0,
         }]}
@@ -57,7 +58,7 @@ const EmojiPanel = (props) => {
                 {/* 视图容器 */}
                 <ViewPagerAndroid
                     horizontal
-                    style={{height: (BaseWidth + 15) * 3,width:'100%', marginTop: StatusBar.currentHeight + 10}}
+                    style={{height: (BaseWidth + 15) * 3,marginTop: StatusBar.currentHeight,width:'100%'}}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
@@ -89,7 +90,7 @@ const EmojiPanel = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#f9f9f9',
+        // backgroundColor: '#f5f5f5',
         borderTopWidth: 0,
         borderColor: '#ccc',
         overflow: 'hidden'

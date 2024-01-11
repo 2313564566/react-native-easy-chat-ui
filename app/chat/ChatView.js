@@ -53,6 +53,7 @@ class ChatWindow extends PureComponent {
             messageContent: '',
             cursorIndex: 0,
             listVisibleHeight: 0,
+            visibleHeight:0,
             keyboardShow: false,
             keyboardHeight: 0,
             showVoice: false,
@@ -77,7 +78,8 @@ class ChatWindow extends PureComponent {
             emojiShow: false,
             messageSelected: [],
             currentIndex: -1,
-            pressIndex: -1
+            pressIndex: -1,
+            moveHeight:0
         };
     }
 
@@ -793,6 +795,11 @@ class ChatWindow extends PureComponent {
                                 messageContent={messageContent}
                                 textChange={this._changeText.bind(this)}
                                 onContentSizeChange={this._onContentSizeChange.bind(this)}
+                                onLayoutChange={(h) => {
+                                    this.setState({
+                                        moveHeight: h
+                                    })
+                                }}
                                 xHeight={xHeight}
                                 onFocus={this._onFocus}
                                 autoFocus={this.autoFocus}
@@ -845,6 +852,7 @@ class ChatWindow extends PureComponent {
                             onEmojiSelected={this._onEmojiSelected}
                             emojiShow={emojiShow}
                             panelShow={panelShow}
+                            moveHeight={this.state.moveHeight}
                         />
                         : null
                     }

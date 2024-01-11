@@ -1,15 +1,33 @@
 import React, {PureComponent} from 'react';
-import {View, StyleSheet, Dimensions, Animated, Platform} from 'react-native';
+import {View, StyleSheet, Dimensions, Animated, Platform, DeviceEventEmitter} from 'react-native';
 import EmojiPanel from '../emoji';
 import PlusPanel from '../plus';
 
 const {width, height} = Dimensions.get('window');
+// let eventHeader = null;
+
 export default class PanelContainer extends PureComponent {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //       eventHeader: null,
+  //       moveHeight:0
+  //   }
+  // }
+
+  componentDidMount() {
+      // eventHeader = DeviceEventEmitter.addListener("onInputLayoutChange",(h) => {
+      //     console.log("onInputLayoutChange",h);
+      //     this.setState({
+      //         moveHeight: h,
+      //     });
+      // });
+  }
+  componentWillUnmount() {
+      // eventHeader.remove();
   }
 
-  render() {
+    render() {
     const {
       panelContainerHeight,
       visibleHeight,
@@ -24,7 +42,8 @@ export default class PanelContainer extends PureComponent {
       aniEmojiHeight,
       aniPlusHeight,
       panelShow,
-      emojiShow
+      emojiShow,
+        moveHeight
     } = this.props;
     return (
         <Animated.View
@@ -33,7 +52,7 @@ export default class PanelContainer extends PureComponent {
               position: 'absolute',
               height: panelContainerHeight,
               zIndex: 1,
-              top: height,
+              top:  height + this.props.moveHeight,
               width,
               backgroundColor: '#f5f5f5',
               transform: [{translateY: aniPanelHeight}],
