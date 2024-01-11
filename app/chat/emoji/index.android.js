@@ -3,7 +3,7 @@ import {
     View,
     StyleSheet,
     Dimensions,
-    Animated,Easing,Text
+    Animated,Easing,Text,StatusBar
 } from 'react-native';
 import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
@@ -57,7 +57,7 @@ const EmojiPanel = (props) => {
                 {/* 视图容器 */}
                 <ViewPagerAndroid
                     horizontal
-                    style={{height: (BaseWidth + 15) * 3,width:'100%', marginTop: 24}}
+                    style={{height: (BaseWidth + 15) * 3,width:'100%', marginTop: StatusBar.currentHeight + 10}}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
