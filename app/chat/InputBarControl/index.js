@@ -111,14 +111,16 @@ export default class InputBar extends PureComponent {
         inputContainerStyle={inputContainerStyle}
         aniKeybordWillShow={aniKeybordWillShow}
       >
-        <Voice
-            showVoice={showVoice}
-            ImageComponent={ImageComponent}
-            keyboardIcon={keyboardIcon}
-            voiceIcon={voiceIcon}
-            inputHeightFix={inputHeightFix}
-            onMethodChange={onMethodChange}
-        />
+        {useVoice &&
+            <Voice
+                showVoice={showVoice}
+                ImageComponent={ImageComponent}
+                keyboardIcon={keyboardIcon}
+                voiceIcon={voiceIcon}
+                inputHeightFix={inputHeightFix}
+                onMethodChange={onMethodChange}
+            />
+        }
         <View style={[styles.container,{width: useEmoji ? width - 130 : width - 100}]}>
           {showVoice
             ? <VoiceButton
