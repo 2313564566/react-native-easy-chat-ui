@@ -796,6 +796,7 @@ class ChatWindow extends PureComponent {
                                 textChange={this._changeText.bind(this)}
                                 onContentSizeChange={this._onContentSizeChange.bind(this)}
                                 onLayoutChange={(h) => {
+                                    console.log("onLayoutChange",h);
                                     this.setState({
                                         moveHeight: h
                                     })

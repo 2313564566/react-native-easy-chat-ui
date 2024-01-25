@@ -20,9 +20,10 @@ export default class InputBar extends PureComponent {
   }
 
   setInputHeight = (height) => {
-    console.log("setInputHeight",Math.abs(height));
-    this.props.onLayoutChange(Math.abs(height));
+    // console.log("setInputHeight",Math.abs(height));
+    // this.props.onLayoutChange(Math.abs(height));
     // DeviceEventEmitter.emit('onInputLayoutChange', Math.abs(height));
+    this.inputHeight = height
   }
   renderIcon = () => {
     const { sendIcon, plusIcon, usePlus, messageContent, sendUnableIcon, ImageComponent } = this.props
@@ -111,14 +112,16 @@ export default class InputBar extends PureComponent {
         inputContainerStyle={inputContainerStyle}
         aniKeybordWillShow={aniKeybordWillShow}
       >
-        <Voice
-            showVoice={showVoice}
-            ImageComponent={ImageComponent}
-            keyboardIcon={keyboardIcon}
-            voiceIcon={voiceIcon}
-            inputHeightFix={inputHeightFix}
-            onMethodChange={onMethodChange}
-        />
+        {useVoice &&
+            <Voice
+                showVoice={showVoice}
+                ImageComponent={ImageComponent}
+                keyboardIcon={keyboardIcon}
+                voiceIcon={voiceIcon}
+                inputHeightFix={inputHeightFix}
+                onMethodChange={onMethodChange}
+            />
+        }
         <View style={[styles.container,{width: useEmoji ? width - 130 : width - 100}]}>
           {showVoice
             ? <VoiceButton
