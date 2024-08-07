@@ -3,7 +3,7 @@ import {
     View,
     StyleSheet,
     Dimensions,
-    Animated,Easing,Text,StatusBar
+    Animated, Easing, Text, StatusBar,
 } from 'react-native';
 import ViewPagerAndroidContainer from '../android-container';
 import ViewPagerAndroid from 'react-native-pager-view';
@@ -30,6 +30,14 @@ const EmojiPanel = (props) => {
                 <Text style={{fontSize:8,color:'#aaa',marginTop:3}}>{item.name}</Text>
             </PressableOpacity>
         )
+    }
+    const getNavigationBarHeight = () => {
+        const Window = Dimensions.get('window');
+        const Screen = Dimensions.get('screen');
+        const windowHeight = Window.height;
+        const statusBarHeight = StatusBar.currentHeight || 0;
+        console.log('statusBarHeight', statusBarHeight);
+        return Math.round(Screen.height - windowHeight - statusBarHeight);
     }
 
     const onPageScroll = (e) => {
@@ -58,7 +66,7 @@ const EmojiPanel = (props) => {
                 {/* 视图容器 */}
                 <ViewPagerAndroid
                     horizontal
-                    style={{height: (BaseWidth + 15) * 3,marginTop: StatusBar.currentHeight,width:'100%'}}
+                    style={{height: (BaseWidth + 15) * 3,marginTop: getNavigationBarHeight() === 0 ? 44 : 20,width:'100%'}}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     bounces={false}

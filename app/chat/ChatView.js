@@ -49,6 +49,7 @@ class ChatWindow extends PureComponent {
         this.rootHeight = 0;
         this.androidHasAudioPermission = false;
         this.scrollToBottom = this._scrollToBottom;
+        this.hasResizeContent = false;
         this.state = {
             messageContent: '',
             cursorIndex: 0,
@@ -79,7 +80,9 @@ class ChatWindow extends PureComponent {
             messageSelected: [],
             currentIndex: -1,
             pressIndex: -1,
-            moveHeight:0
+            moveHeight:0,
+            footerHeight:0,
+            rootHeight:0,
         };
     }
 
@@ -657,12 +660,12 @@ class ChatWindow extends PureComponent {
             panelShow,
             emojiShow,
         } = this.state;
-        const currentList = messageList.slice().sort((a, b) => inverted
-            ? (b.time - a.time)
-            : (a.time - b.time));
+        const currentList = messageList.slice().sort((a, b) =>  (b.time - a.time));
         const panelContainerHeight = allPanelHeight + (this.isIphoneX ? this.props.iphoneXBottomPadding : StatusBar.currentHeight);
         return (
-            <View style={{flex: 1, position: 'relative'}} onLayout={(e) => this.rootHeight = e.nativeEvent.layout.height}>
+            <View style={{flex: 1, position: 'relative'}} onLayout={(e) => {
+                this.rootHeight = e.nativeEvent.layout.height;
+            }}>
                 {this.renderBg(chatBackgroundImage)}
                 <View style={Platform.OS === 'android' ? {
                     flex: 1,
@@ -679,7 +682,8 @@ class ChatWindow extends PureComponent {
                         flex: 1,
                         backgroundColor: 'transparent',
                     }, this.props.chatWindowStyle]}>
-                        <Animated.View style={{flex:1,position:'relative',transform: [{translateY: this.aniKeybordWillShow}]}}>
+                        <Animated.View
+                            style={{flex:1,position:'relative',transform: [{translateY: this.aniKeybordWillShow}]}}>
                             {this.props.renderContent && this.props.renderContent()}
                             {(panelShow || emojiShow) &&
                                 <Pressable onPress={() => this.closeAll(null)} style={{
@@ -689,7 +693,7 @@ class ChatWindow extends PureComponent {
                                     height: '100%'
                                 }}/>
                             }
-                            <FlashList
+                            <FlatList
                                 {...this.props.flatListProps}
                                 estimatedItemSize={100}
                                 ref={e => (this.chatList = e)}
@@ -701,19 +705,16 @@ class ChatWindow extends PureComponent {
                                 onScroll={(e) => {
                                     this.props.onScroll(e);
                                 }}
+                                contentContainerStyle={{flexGrow:1,justifyContent:'flex-end'}}
+                                // ListHeaderComponent={() => {
+                                //     return <View style={{flex:1,height:'100%'}} />
+                                // }}
                                 showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
                                 onEndReachedThreshold={this.props.onEndReachedThreshold}
                                 enableEmptySections
                                 scrollEventThrottle={100}
                                 keyExtractor={(item,index) => item.id + index}
                                 onEndReached={() => this._loadHistory()}
-                                onLayout={(e) => {
-                                    // this._scrollToBottom();
-                                    // this.listHeight = e.nativeEvent.layout.height;
-                                }}
-                                onContentSizeChange={(contentWidth, contentHeight) => {
-                                    // this._scrollToBottom({contentWidth, contentHeight});
-                                }}
                                 renderItem={({item, index}) =>
                                     <ChatItem
                                         ImageComponent={ImageComponent}
