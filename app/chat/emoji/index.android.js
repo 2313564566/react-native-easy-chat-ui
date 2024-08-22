@@ -66,7 +66,7 @@ const EmojiPanel = (props) => {
                 {/* 视图容器 */}
                 <ViewPagerAndroid
                     horizontal
-                    style={{height: (BaseWidth + 15) * 3,marginTop: getNavigationBarHeight() === 0 ? 44 : 20,width:'100%'}}
+                    style={{height: (BaseWidth + 15) * 3, marginTop: 40,width:'100%'}}
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
