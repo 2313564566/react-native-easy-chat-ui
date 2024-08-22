@@ -134,13 +134,11 @@ export default class VoiceMessage extends PureComponent {
 
 const styles = StyleSheet.create({
     triangle: {
-        width: 0, height: 0, zIndex: 999, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent',
+        
     }, left_triangle: {
-        arginLeft: 5,
-        borderLeftWidth: 0, borderRightWidth: Platform.OS === 'android' ? 6 : 10, marginLeft: 5,
+        marginLeft: 5
     }, right_triangle: {
-        marginRight: 5,
-        borderRightWidth: 0, borderLeftWidth: Platform.OS === 'android' ? 6 : 10, borderColor: '#a0e75a', marginRight: 5,
+        marginRight: 5
     }, right: {
         flexDirection: 'row-reverse', alignItems: 'center',
     }, left: {
