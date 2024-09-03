@@ -37,11 +37,16 @@ const styles = StyleSheet.create({
     subEmojiStyle: {
         width: 25, height: 25,
     }, triangle: {
-        
+        width: 0, height: 0, zIndex: 999, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent',
     }, left_triangle: {
-        marginLeft: 5
+        marginLeft: 5,
+        borderLeftWidth: 0, 
+        borderRightWidth: 6
     }, right_triangle: {
-        marginRight: 5
+        marginRight: 5,
+        borderRightWidth: 0, 
+        borderLeftWidth: 6, 
+        borderColor: '#a0e75a'
     }, right: {
         flexDirection: 'row-reverse',
     }, left: {
