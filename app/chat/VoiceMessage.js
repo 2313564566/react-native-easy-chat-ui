@@ -134,7 +134,7 @@ export default class VoiceMessage extends PureComponent {
 
 const styles = StyleSheet.create({
     triangle: {
-        width: 0, height: 0, zIndex: 999, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent',borderColor: '#fff', marginTop: 16,
+        width: 0, height: 0, zIndex: 999, borderWidth: 6, borderTopColor: 'transparent', borderBottomColor: 'transparent',borderColor: '#fff', marginTop: 0,
     }, left_triangle: {
         marginLeft: 5,
         borderLeftWidth: 0, 
