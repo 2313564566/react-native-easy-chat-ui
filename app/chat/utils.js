@@ -1,6 +1,6 @@
 import moment from 'moment'
 import {Dimensions, Platform} from 'react-native'
-import { EMOJIS_ZH, invertKeyValues } from '../source/emojis'
+// import { EMOJIS_ZH, invertKeyValues } from '../source/emojis'
 const X_WIDTH = 375
 const X_HEIGHT = 812
 const XSMAX_WIDTH = 414
