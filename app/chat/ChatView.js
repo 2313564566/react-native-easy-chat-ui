@@ -12,7 +12,6 @@ import {
     Pressable,
     Animated, FlatList,
 } from 'react-native';
-import {FlashList} from '@shopify/flash-list';
 import {ViewPropTypes as RNViewPropTypes} from 'deprecated-react-native-prop-types';
 import PropTypes from 'prop-types';
 import {getCurrentTime, changeEmojiText} from './utils';
